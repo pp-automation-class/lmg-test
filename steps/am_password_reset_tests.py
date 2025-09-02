@@ -76,11 +76,6 @@ def _assert_any_text_visible(page, regex_list, timeout=5000):
             raise AssertionError(f"Expected to find visible text matching: {rx.pattern}")
 
 
-@given('I navigate to "{url}"')
-def step_navigate_to(context, url):
-    context.page.goto(url)
-
-
 @when('I click the "Forgot password" link')
 def step_click_forgot_password(context):
     _click_forgot_password_link(context.page)
@@ -100,12 +95,6 @@ def step_heading_contains_reset_or_forgot(context):
         # Fallback: any heading tag with matching text
         loc = context.page.locator("h1, h2, h3, [role='heading']").filter(has_text=HEADING_RESET_REGEX)
         loc.first.wait_for(state="visible", timeout=5000)
-
-
-@then("I should see the email input")
-def step_see_email_input(context):
-    tb = _email_textbox(context.page)
-    tb.wait_for(state="visible", timeout=5000)
 
 
 @given("I am on the password reset page")

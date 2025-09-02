@@ -129,7 +129,7 @@ def step_see_email_input(context):
     raise AssertionError("Email input not visible")
 
 
-@then("I should see the password input")
+@then("I should see the password input manyfold")
 def step_see_password_input(context):
     page = context.page
     candidates = [

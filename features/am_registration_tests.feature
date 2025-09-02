@@ -18,7 +18,7 @@ Feature: AM - UltimateQA Registration Navigation
     When I click the "Sign in" link
     Then I should be on a page with URL containing "sign_in" or "login"
     And I should see the email input
-    And I should see the password input
+    And I should see the password input manyfold
 
   @am @register @validation
   Scenario: Registration page shows required field validations
