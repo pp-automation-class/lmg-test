@@ -12,6 +12,8 @@ behave = "^1.3.2"
 pytest = "^8.4.1"
 pytest-playwright = "^0.7.0"
 
+[tool.poetry.scripts]
+show-installed = "show_installed:main"
 
 [build-system]
 requires = ["poetry-core"]
