@@ -55,5 +55,4 @@ class KdCreateAccountPage(KdBasePage):
 
     # Validation helpers
     def kd_get_validation_text(self):
-        """Return the text content of a generic validation message if visible; None otherwise."""
         return self.kd_get_element_text(self.validation_message)

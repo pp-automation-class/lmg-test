@@ -2,6 +2,7 @@
 KD Base Page Object Model
 """
 
+
 class KdBasePage:
     """Base class with common page actions (KD methods)"""
 
@@ -35,7 +36,6 @@ class KdBasePage:
         return None
 
     def kd_verify_page_title(self, expected_title):
-        """Verify page title contains expected text using page_title selector"""
         actual_title = self.kd_get_element_text(self.page_title)
         if actual_title:
             return expected_title.lower() in actual_title.lower()

@@ -3,35 +3,23 @@ Login Page Object Model (KD)
 """
 
 from pages.kd_base_page import KdBasePage
+from pages.kd_create_account_page import KdCreateAccountPage
+
 
 class KdLoginPage(KdBasePage):
-    """Represents the KD login page and its actions"""
 
     def __init__(self, page):
         super().__init__(page)
 
-        # Common page title selector for BasePage.verify_page_title
-        self.page_title = "h1"
-
-        # Inputs (robust, multi-option selectors)
-        self.email_input = (
-            "input[type='email'], input[name='email'], input[placeholder='Email']"
-        )
-        self.password_input = (
-            "input[type='password'], input[name='password'], input[placeholder='Password']"
-        )
-
-        # Buttons / links based on the screenshot
-        self.login_button = "button:has-text('Login'), button[type='submit']"
-        self.forgot_password_link = (
-            "a:has-text('Forgot password'), a[href*='forgot'], a[href*='reset']"
-        )
-        self.create_account_link = (
-            "a:has-text('Create an account'), a:has-text('Sign up'), a[href*='register']"
-        )
+        self.page_title = "//h5"
+        self.email_input = "//input[@name='username']"
+        self.password_input = "//input[@name='password']"
+        self.login_button = "//button[text()=' Login ']"
+        self.forgot_password_link = "//a[text()='Forgot password?']"
+        self.create_account_link = "//a[text()='Create an account']"
 
         # Generic validation or error container
-        self.validation_message = ".error-message, .validation-message, [role='alert']"
+        # self.validation_message = ".error-message, .validation-message, [role='alert']"
 
     # Navigation
     def kd_navigate_to_login(self, url: str) -> None:
@@ -59,15 +47,12 @@ class KdLoginPage(KdBasePage):
         self.kd_click_element(self.forgot_password_link)
 
     def kd_click_create_account(self) -> KdCreateAccountPage:
-        """Click the Create an account link and return the create-account POM"""
         self.kd_click_element(self.create_account_link)
         return KdCreateAccountPage(self.page)
 
     # Helpers
-    def kd_get_validation_text(self):
-        """Return the text from a visible validation/error message if present."""
-        return self.kd_get_element_text(self.validation_message)
+    # def kd_get_validation_text(self):
+    #     return self.kd_get_element_text(self.validation_message)
 
-    def kd_verify_title_contains(self, expected_text: str) -> bool:
-        """Verify the page title contains expected text using BasePage logic."""
-        return self.kd_verify_page_title(expected_text)
+    # def kd_verify_title_contains(self, expected_text: str) -> bool:
+    #     return self.kd_verify_page_title(expected_text)
