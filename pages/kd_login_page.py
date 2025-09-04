@@ -2,9 +2,9 @@
 Login Page Object Model (KD)
 """
 
-from pages.base_page import BasePage
+from pages.kd_base_page import KdBasePage
 
-class KdLoginPage(BasePage):
+class KdLoginPage(KdBasePage):
     """Represents the KD login page and its actions"""
 
     def __init__(self, page):
@@ -36,18 +36,18 @@ class KdLoginPage(BasePage):
     # Navigation
     def kd_navigate_to_login(self, url: str) -> None:
         """Navigate to the login page"""
-        self.navigate(url)
+        self.kd_navigate(url)
 
     # Field interactions
     def kd_enter_email(self, email: str) -> None:
-        self.fill_input(self.email_input, email)
+        self.kd_fill_input(self.email_input, email)
 
     def kd_enter_password(self, password: str) -> None:
-        self.fill_input(self.password_input, password)
+        self.kd_fill_input(self.password_input, password)
 
     # Actions
     def kd_click_login(self) -> None:
-        self.click_element(self.login_button)
+        self.kd_click_element(self.login_button)
 
     def kd_login(self, email: str, password: str) -> None:
         """Complete the login flow using email and password"""
@@ -56,18 +56,18 @@ class KdLoginPage(BasePage):
         self.kd_click_login()
 
     def kd_click_forgot_password(self) -> None:
-        self.click_element(self.forgot_password_link)
+        self.kd_click_element(self.forgot_password_link)
 
     def kd_click_create_account(self) -> KdCreateAccountPage:
         """Click the Create an account link and return the create-account POM"""
-        self.click_element(self.create_account_link)
+        self.kd_click_element(self.create_account_link)
         return KdCreateAccountPage(self.page)
 
     # Helpers
     def kd_get_validation_text(self):
         """Return the text from a visible validation/error message if present."""
-        return self.get_element_text(self.validation_message)
+        return self.kd_get_element_text(self.validation_message)
 
     def kd_verify_title_contains(self, expected_text: str) -> bool:
         """Verify the page title contains expected text using BasePage logic."""
-        return self.verify_page_title(expected_text)
+        return self.kd_verify_page_title(expected_text)

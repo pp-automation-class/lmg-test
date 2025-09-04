@@ -2,10 +2,10 @@
 Create Account Page Object Model (KD)
 """
 
-from pages.base_page import BasePage
+from pages.kd_base_page import KdBasePage
 
 
-class KdCreateAccountPage(BasePage):
+class KdCreateAccountPage(KdBasePage):
     """Represents create account page and actions on it"""
 
     def __init__(self, page):
@@ -30,21 +30,21 @@ class KdCreateAccountPage(BasePage):
     # Navigation
     def kd_navigate_to_register(self, url):
         """Navigate to the registration page"""
-        self.navigate(url)
+        self.kd_navigate(url)
 
     # Interactions
     def kd_enter_email(self, value):
-        self.fill_input(self.email_input, value)
+        self.kd_fill_input(self.email_input, value)
 
     def kd_check_terms(self):
         """Toggle/check the terms checkbox by clicking label/checkbox"""
-        self.click_element(self.terms_checkbox)
+        self.kd_click_element(self.terms_checkbox)
 
     def kd_click_register(self):
-        self.click_element(self.register_button)
+        self.kd_click_element(self.register_button)
 
     def kd_click_login_link(self):
-        self.click_element(self.login_link)
+        self.kd_click_element(self.login_link)
 
     # Composite flow
     def kd_register(self, email, accept_terms=True):
@@ -56,4 +56,4 @@ class KdCreateAccountPage(BasePage):
     # Validation helpers
     def kd_get_validation_text(self):
         """Return the text content of a generic validation message if visible; None otherwise."""
-        return self.get_element_text(self.validation_message)
+        return self.kd_get_element_text(self.validation_message)
