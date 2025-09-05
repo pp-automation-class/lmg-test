@@ -16,7 +16,7 @@ class AmCreateAccountPage(AmBasePage):
         # Email input field (generic class selector used by the UI library)
         self.email_input = "//input[@class='el-input__inner']"
         # Terms and conditions checkbox control (inner span element)
-        self.checkbox = "//span[@class='el-checkbox__inner']"
+        self.checkbox_accert = "//span[@class='el-checkbox__inner']"
         # Submit/registration button to create the account
         self.button = "//button[text()=' Register ']"
         # Link opening the terms and conditions document/page
@@ -27,7 +27,7 @@ class AmCreateAccountPage(AmBasePage):
         # Type the email into the email input
         self.enter_email(email)
         # Accept terms by clicking the checkbox
-        self.click_element(self.checkbox)
+        self.check(self.checkbox_accert)
         # Submit the form using the register button
         self.click_button()
 

@@ -93,6 +93,14 @@ class AmBasePage:
         """
         self.page.wait_for_selector(self.page_title)
 
+    def check(self, selector: str) -> None:
+        """Check the checkbox"""
+        self.page.locator(selector).check()
+
+    def uncheck(self, selector: str) -> None:
+        """Uncheck the checkbox"""
+        self.page.locator(selector).uncheck()
+
     def enter_email(self, email):
         """
         Enter an email into the email input field.
