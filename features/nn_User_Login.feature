@@ -58,4 +58,4 @@ Background:
       | @domain.com        | Please enter a valid email address |
       | user@              | Please enter a valid email address |
       | user@domain        | Please enter a valid email address |
-      | user@domain.com    |                                   |
+      | user@domain.com    |                                        |
