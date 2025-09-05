@@ -17,23 +17,19 @@ class KdLoginPage(KdBasePage):
         self.login_button = "//button[text()=' Login ']"
         self.forgot_password_link = "//a[text()='Forgot password?']"
         self.create_account_link = "//a[text()='Create an account']"
-
-        # Generic validation or error container
-        # self.validation_message = ".error-message, .validation-message, [role='alert']"
+        self.validation_message = "//p[contains(text(), 'Sorry')]"
 
     # Navigation
     def kd_navigate_to_login(self, url: str) -> None:
         """Navigate to the login page"""
         self.kd_navigate(url)
 
-    # Field interactions
     def kd_enter_email(self, email: str) -> None:
         self.kd_fill_input(self.email_input, email)
 
     def kd_enter_password(self, password: str) -> None:
         self.kd_fill_input(self.password_input, password)
 
-    # Actions
     def kd_click_login(self) -> None:
         self.kd_click_element(self.login_button)
 
@@ -51,8 +47,8 @@ class KdLoginPage(KdBasePage):
         return KdCreateAccountPage(self.page)
 
     # Helpers
-    # def kd_get_validation_text(self):
-    #     return self.kd_get_element_text(self.validation_message)
+    def kd_get_validation_text(self):
+        return self.kd_get_element_text(self.validation_message)
 
-    # def kd_verify_title_contains(self, expected_text: str) -> bool:
-    #     return self.kd_verify_page_title(expected_text)
+    def kd_verify_title_contains(self, expected_text: str) -> bool:
+        return self.kd_verify_page_title(expected_text)

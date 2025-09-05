@@ -7,7 +7,6 @@ from pages.kd_login_page import KdLoginPage
 
 
 class KdRestorePasswordPage(KdBasePage):
-    """Represents the Restore Password page and its actions (KD)"""
 
     def __init__(self, page):
         super().__init__(page)
@@ -16,7 +15,7 @@ class KdRestorePasswordPage(KdBasePage):
         self.email_input = "//input[@id='el-id-9524-9']"
         self.send_button = "//button[text()=' Send ']"
         self.back_to_login_link = "//a[text()='Back to Login page']"
-        self.validation_message = "//p[text()='Sorry, unrecognized username or password.']"
+        self.validation_message = "//p[contains(text(), 'Sorry')]"
 
     # Navigation
     def kd_navigate_to_restore(self, url: str) -> None:

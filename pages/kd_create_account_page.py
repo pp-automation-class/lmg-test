@@ -12,20 +12,12 @@ class KdCreateAccountPage(KdBasePage):
         super().__init__(page)
 
         # Page title used by BasePage.verify_page_title
-        self.page_title = "h1"
-
-        # Elements on the new screen
-        self.email_input = (
-            "input[type='email'], input[placeholder='Your Email'], input[name='email']"
-        )
-
-        self.terms_checkbox = (
-            "label:has-text('Agree'), label:has-text('Terms and Conditions'), input[type='checkbox']"
-        )
-        self.register_button = "button:has-text('Register'), button[type='submit']"
+        self.page_title = "//h5"
+        self.email_input = "//input[@name='username']"
+        self.password_input = "//input[@name='password']"
+        self.register_button = "//button[text()=' Register ']"
         self.login_link = "a:has-text('Log in'), a[href*='login']"
-
-        self.validation_message = ".error-message, .validation-message, [role='alert']"
+        self.validation_message = "//p[contains(text(), 'Sorry')]"
 
     # Navigation
     def kd_navigate_to_register(self, url):
