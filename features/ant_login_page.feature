@@ -9,19 +9,26 @@ Feature: Login Page
 
   @positive
   Scenario: Successful login with valid credentials
-    When I enter "anton.bondarenko.test@gmail.com" in the email field
+    When I enter "anton.bondarenko.test@gmail.com" in the username field
     And I enter "123459" in the password field
     And I click the login button
     Then I should be redirected to the devices page
     And I should see a welcome message
 
   @negative
-  Scenario: Login fails with invalid credentials
-    When I enter "invalid.user@example.com" in the email field
-    And I enter "wrongpassword" in the password field
+  Scenario Outline: Login fails with invalid credentials
+    When I enter "<username>" in the username field
+    And I enter "<password>" in the password field
     And I click the login button
     Then I should see an error message "Invalid email or password"
     And I should remain on the login page
+
+    Examples:
+      | username                    | password      |
+      | invalid.user@example.com    | wrongpassword |
+      | wrongemail@test.com         | 123459        |
+      | test@                       | validpass     |
+      | anton.bondarenko.test@gmail.com | wrongpass |
 
   @negative
   Scenario: Login fails with empty credentials
