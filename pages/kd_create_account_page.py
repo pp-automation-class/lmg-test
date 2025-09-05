@@ -11,12 +11,11 @@ class KdCreateAccountPage(KdBasePage):
     def __init__(self, page):
         super().__init__(page)
 
-        # Page title used by BasePage.verify_page_title
         self.page_title = "//h5"
         self.email_input = "//input[@name='username']"
         self.password_input = "//input[@name='password']"
         self.register_button = "//button[text()=' Register ']"
-        self.login_link = "a:has-text('Log in'), a[href*='login']"
+        self.login_link = "//button[text()=' Login ']"
         self.validation_message = "//p[contains(text(), 'Sorry')]"
 
     # Navigation
@@ -38,7 +37,6 @@ class KdCreateAccountPage(KdBasePage):
     def kd_click_login_link(self):
         self.kd_click_element(self.login_link)
 
-    # Composite flow
     def kd_register(self, email, accept_terms=True):
         self.kd_enter_email(email)
         if accept_terms:

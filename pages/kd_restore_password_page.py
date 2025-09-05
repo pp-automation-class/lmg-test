@@ -29,7 +29,6 @@ class KdRestorePasswordPage(KdBasePage):
     def kd_click_send(self) -> None:
         self.kd_click_element(self.send_button)
 
-    # Composite flow
     def kd_restore(self, email: str) -> None:
         """Fill email and submit restore password request"""
         self.kd_enter_email(email)
