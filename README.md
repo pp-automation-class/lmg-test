@@ -117,29 +117,6 @@ Feature: Login Page
 - **pytest**: Testing framework
 - **requests**: HTTP library
 
-## Show installed packages
-
-You can print the packages installed in the current Poetry environment.
-
-- Human-friendly output:
-
-```bash
-poetry run show-installed
-```
-
-- requirements.txt style (pip-freeze-like) output:
-
-```bash
-poetry run show-installed --freeze
-```
-
-Alternatively, you can run the script directly:
-
-```bash
-poetry run python show_installed.py
-poetry run python show_installed.py --freeze
-```
-
 ## Troubleshooting
 
 ### Poetry not found
