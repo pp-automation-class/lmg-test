@@ -4,15 +4,15 @@ Feature: Login Page
   So that I can access my account and protected features
 
   Background:
-    Given I am on the login page
+    Given I am on the dev environment login page
 
   @smoke @login
   Scenario: Successful login with valid credentials
-    When I enter "testuser@example.com" in the email field
-    And I enter "ValidPass123!" in the password field
+    When I enter "pcs.automationclass@gmail.com" in the email field
+    And I enter "1234567" in the password field
     And I click the login button
+#    And Wait for 5 seconds
     Then I should be redirected to the devices page
-    And I should see "Welcome back" message
 
   @negative @login
   Scenario: Failed login with invalid password

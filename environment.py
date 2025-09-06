@@ -1,5 +1,12 @@
+from playwright.sync_api import sync_playwright
+
+
 def before_all(context):
-    pass
+    # Launch Playwright and create browser instance
+    context.playwright = sync_playwright().start()
+    context.browser = context.playwright.chromium.launch(
+        headless=False  # Set to True for headless mode
+    )
 
 
 def before_feature(context, feature):
@@ -7,7 +14,9 @@ def before_feature(context, feature):
 
 
 def before_scenario(context, scenario):
-    pass
+    # Create a new browser context and page for each scenario
+    context.browser_context = context.browser.new_context()
+    context.page = context.browser_context.new_page()
 
 
 def before_step(context, step):
@@ -19,7 +28,9 @@ def after_step(context, step):
 
 
 def after_scenario(context, scenario):
-    pass
+    # Close the browser context after each scenario
+    if hasattr(context, 'browser_context'):
+        context.browser_context.close()
 
 
 def after_feature(context, feature):
@@ -27,4 +38,8 @@ def after_feature(context, feature):
 
 
 def after_all(context):
-    pass
+    # Clean up browser and Playwright instances
+    if hasattr(context, 'browser'):
+        context.browser.close()
+    if hasattr(context, 'playwright'):
+        context.playwright.stop()
