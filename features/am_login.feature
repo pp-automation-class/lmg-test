@@ -15,14 +15,36 @@ Feature: Login
 
   @negative @login
   Scenario: Failed login with invalid password
-    Given am: I enter "test@example.com" in the email field
-    And   am: I enter "ValidPass123!" in the password field
+    Given am: I enter valid email in the email field
+    And   am: I enter "InvalidPass123!" in the password field
     When  am: I click the login button
-    Then am: I get the invalod login error message
+    Then  am: I get the invalid login error message
 
-
+  @negative @login
   Scenario: Failed login with invalid email and valid password
+    Given am: I enter "invalid@example.com" in the email field
+    And   am: I enter valid password in the password field
+    When  am: I click the login button
+    Then  am: I get the invalid login error message
+
+  @negative @login
   Scenario: Failed login with invalid credentials
-  Scenario: Failed login with valid email and invalid password
+    Given am: I enter "invalid@example.com" in the email field
+    And   am: I enter "InvalidPass123!" in the password field
+    When  am: I click the login button
+    Then  am: I get the invalid login error message
+
+  @negative @login
   Scenario: Failed login with empty email
-  Scenario: Failed login with wrong format email
+    Given am: I don't fill the email field
+    And   am: I enter valid password in the password field
+    When  am: I click the login button
+    Then  am: I get the empty email error message
+
+  @negative @login
+  Scenario: Failed login with empty password
+    Given am: I enter valid email in the email field
+    And   am: I don't fill the password field
+    When  am: I click the login button
+    Then  am: I get the empty password error message
+

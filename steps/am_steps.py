@@ -15,7 +15,7 @@ def am_navigate_to_login_page(context, env):
 
 
 @step("am: I enter valid email in the email field")
-def step_impl(context):
+def am_enter_valid_email(context):
     """
     :type context: behave.runner.Context
     """
@@ -24,7 +24,7 @@ def step_impl(context):
 
 
 @step("am: I enter valid password in the password field")
-def step_impl(context):
+def am_enter_valid_password(context):
     """
     :type context: behave.runner.Context
     """
@@ -33,7 +33,7 @@ def step_impl(context):
 
 
 @step("am: I click the login button")
-def step_impl(context):
+def am_click_login_button(context):
     """
     :type context: behave.runner.Context
     """
@@ -41,8 +41,68 @@ def step_impl(context):
 
 
 @step("am: I should be redirected to the devices page")
-def step_impl(context):
+def am_verify_devices_page(context):
     """
     :type context: behave.runner.Context
     """
     AmDevicesPage(context).verify_page()
+
+
+@step('am: I enter "{email}" in the email field')
+def am_enter_email(context, email):
+    """
+    :param email:
+    :type context: behave.runner.Context
+    """
+    AmLoginPage(context).enter_email(email)
+
+
+@step('am: I enter "{password}" in the password field')
+def am_enter_password(context, password):
+    """
+    :param password:
+    :type context: behave.runner.Context
+    """
+    AmLoginPage(context).enter_password(password)
+
+
+@step("am: I get the invalid login error message")
+def am_get_login_error(context):
+    """
+    :type context: behave.runner.Context
+    """
+    AmLoginPage(context).get_login_error_message()
+
+
+@step("am: I don't fill the email field")
+def am_dont_fill_email_field(context):
+    """
+    :type context: behave.runner.Context
+    """
+    login_page = AmLoginPage(context)
+    login_page.click_element(login_page.email_input)
+
+
+@step("am: I get the empty email error message")
+def am_get_empty_email_error(context):
+    """
+    :type context: behave.runner.Context
+    """
+    AmLoginPage(context).get_empty_email_error_message()
+
+
+@step("am: I don't fill the password field")
+def am_dont_fill_password_field(context):
+    """
+    :type context: behave.runner.Context
+    """
+    login_page = AmLoginPage(context)
+    login_page.click_element(login_page.password_input)
+
+
+@step("am: I get the empty password error message")
+def am_get_empty_password_error(context):
+    """
+    :type context: behave.runner.Context
+    """
+    AmLoginPage(context).get_empty_password_error_message()

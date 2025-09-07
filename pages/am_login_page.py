@@ -34,6 +34,10 @@ class AmLoginPage(AmBasePage):
         self.go_to_login = "//a[@href='/']"
         # CSS selector for error messages shown on failed login attempts
         self.login_error_message = "//p[text()='Sorry, unrecognized username or password.']"
+        # CSS selector for error message shown when email is empty
+        self.empty_email_error_message = "//div[text()='Email is required']"
+        # CSS selector for error message shown when password is empty
+        self.empty_password_error_message = "//div[text()='Password is required']"
 
     def navigate_to_login(self):
         """
@@ -80,3 +84,12 @@ class AmLoginPage(AmBasePage):
     def click_create_an_account(self):
         """Navigate to the account registration page."""
         self.click_element(self.create_an_account)
+
+    def get_empty_email_error_message(self):
+        """Return text of an error message if visible, else None."""
+        return self.get_element_text(self.empty_email_error_message)
+
+    def get_empty_password_error_message(self):
+        """Return text of an error message if visible, else None."""
+        return self.get_element_text(self.empty_password_error_message)
+
