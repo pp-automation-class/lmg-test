@@ -1,6 +1,24 @@
 from pages.am_base_page import AmBasePage
 from utils.am_utils import am_get_enviroment
 
+
+LOGIN_PAGE_TITLE = "//h5[.='Login to Your Account']"
+RESTORE_PASSWORD_PAGE_TITLE = "//h5[.='Restore Password']"
+EMAIL_INPUT_SELECTOR = "//input[@name='username']"
+PASSWORD_INPUT_SELECTOR = "//input[@name='password']"
+LOGIN_BUTTON_SELECTOR = "//button[@type='submit']"
+FORGOT_PASSWORD_LINK = "//a[.='Forgot password?']"
+CREATE_AN_ACCOUNT_LINK = "//a[@href='#/register']"
+GO_TO_LOGIN_LINK = "//a[@href='/']"
+LOGIN_ERROR_MESSAGE = "//p[text()='Sorry, unrecognized username or password.']"
+EMPTY_EMAIL_ERROR_MESSAGE = "//div[text()='Email is required']"
+EMPTY_PASSWORD_ERROR_MESSAGE = "//div[text()='Password is required']"
+FORGOT_PASSWORD_EMAIL_INPUT_SELECTOR = "//input[@class='el-input__inner']"
+FORGOT_PASSWORD_LOGIN_BUTTON_SELECTOR = "//button[text()=' Send ']"
+FORGOT_PASSWORD_SEND_RESULT_MESSAGE = "//p[.='Unable to send email. Contact the site administrator if the problem persists.']"
+EMPTY_RESTORE_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter you email address']"
+WRONG_FORMAT_RESTORE_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter a valid email address']"
+
 class AmLoginPage(AmBasePage):
     """Page Object Model for Account Manager Login page.
 
@@ -21,23 +39,31 @@ class AmLoginPage(AmBasePage):
 
         # Locators
         # Visible page title for sanity checks on the correct page load
-        self.page_title = "//h5[.='Login to Your Account']"
+        self.page_title = LOGIN_PAGE_TITLE
+        # Page title for the password recovery page
+        self.restore_password_title = RESTORE_PASSWORD_PAGE_TITLE
         # Email (username) input field
-        self.email_input = "//input[@name='username']"
+        self.email_input = EMAIL_INPUT_SELECTOR
         # Password input field
-        self.password_input = "//input[@name='password']"
+        self.password_input = PASSWORD_INPUT_SELECTOR
         # Submit button for the login form
-        self.button = "//button[@type='submit']"
+        self.button = LOGIN_BUTTON_SELECTOR
         # Ancillary links on the login page
-        self.forgot_password_link = "//a[@href='#/restorePassword']"
-        self.create_an_account = "//a[@href='#/register']"
-        self.go_to_login = "//a[@href='/']"
+        self.forgot_password_link = FORGOT_PASSWORD_LINK
+        self.create_an_account_link = CREATE_AN_ACCOUNT_LINK
+        self.go_to_login = GO_TO_LOGIN_LINK
         # CSS selector for error messages shown on failed login attempts
-        self.login_error_message = "//p[text()='Sorry, unrecognized username or password.']"
-        # CSS selector for error message shown when email is empty
-        self.empty_email_error_message = "//div[text()='Email is required']"
-        # CSS selector for error message shown when password is empty
-        self.empty_password_error_message = "//div[text()='Password is required']"
+        self.login_error_message = LOGIN_ERROR_MESSAGE
+        # CSS selector for an error message shown when email is empty
+        self.empty_email_error_message = EMPTY_EMAIL_ERROR_MESSAGE
+        # CSS selector for an error message shown when password is empty
+        self.empty_password_error_message = EMPTY_PASSWORD_ERROR_MESSAGE
+        # CSS selectors for elements on the password recovery page
+        self.forgot_password_email_input_selector = FORGOT_PASSWORD_EMAIL_INPUT_SELECTOR
+        self.forgot_password_login_button_selector = FORGOT_PASSWORD_LOGIN_BUTTON_SELECTOR
+        self.forgot_password_send_result_message = FORGOT_PASSWORD_SEND_RESULT_MESSAGE
+        self.empty_restore_email_error_message = EMPTY_RESTORE_EMAIL_ERROR_MESSAGE
+        self.wrong_format_restore_email_error_message = WRONG_FORMAT_RESTORE_EMAIL_ERROR_MESSAGE
 
     def navigate_to_login(self):
         """
@@ -75,7 +101,7 @@ class AmLoginPage(AmBasePage):
 
     def get_login_error_message(self):
         """Return text of an error message if visible, else None."""
-        return self.get_element_text(self.login_error_message)
+        return self.verify_page(self.login_error_message)
 
     def click_forgot_password(self):
         """Navigate to the password recovery page."""
@@ -83,13 +109,19 @@ class AmLoginPage(AmBasePage):
 
     def click_create_an_account(self):
         """Navigate to the account registration page."""
-        self.click_element(self.create_an_account)
+        self.click_element(self.create_an_account_link)
 
     def get_empty_email_error_message(self):
         """Return text of an error message if visible, else None."""
-        return self.get_element_text(self.empty_email_error_message)
+        return self.verify_page(self.empty_email_error_message)
 
     def get_empty_password_error_message(self):
         """Return text of an error message if visible, else None."""
-        return self.get_element_text(self.empty_password_error_message)
+        return self.verify_page(self.empty_password_error_message)
+
+    def get_empty_restore_email_error_message(self):
+        return self.verify_page(self.empty_restore_email_error_message)
+
+    def get_wrong_format_restore_email_error_message(self):
+        return self.verify_page(self.wrong_format_restore_email_error_message)
 

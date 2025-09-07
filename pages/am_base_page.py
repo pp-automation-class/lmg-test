@@ -86,12 +86,14 @@ class AmBasePage:
             return self.page.text_content(selector)
         return None
 
-    def verify_page(self):
+    def verify_page(self, selector=None):
         """
         Wait until the page is considered loaded by ensuring the title element
         is present/visible in the DOM.
         """
-        self.page.wait_for_selector(self.page_title)
+        if not selector:
+            selector = self.page_title
+        self.page.wait_for_selector(selector)
 
     def check(self, selector: str) -> None:
         """Check the checkbox"""
