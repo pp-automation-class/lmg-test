@@ -15,7 +15,7 @@ class LoginPage(BasePage):
 
         # Define selectors for page elements
         self.page_title = "h1"
-        self.email_input = "input[type='email']"  # Email input field
+        self.email_input = "//input[@name='username']"  # Email input field
         self.password_input = "input[type='password']"  # Password input field
         self.login_button = "button[type='submit']"  # Login submit button
         self.error_message = ".error-message"  # Error message container
