@@ -1,5 +1,5 @@
 from pages.am_base_page import AmBasePage
-
+from utils.am_utils import am_get_enviroment
 
 class AmLoginPage(AmBasePage):
     """Page Object Model for Account Manager Login page.
@@ -9,13 +9,15 @@ class AmLoginPage(AmBasePage):
     an element on the login page.
     """
 
-    def __init__(self, page):
+    def __init__(self, context):
         # Initialize the base class with the Playwright page instance
-        super().__init__(page)
+        super().__init__(context)
 
         # NOTE: URL contains basic auth credentials for the test environment.
         # Consider using environment variables or config to avoid hardcoding.
-        self.url = "https://test:FjeKB9ySMzwvDUs2XACpfu@dev.linkmygear.com"
+        self.url = am_get_enviroment(context.env, "url")
+        self.email = am_get_enviroment(context.env, "email")
+        self.password = am_get_enviroment(context.env, "password")
 
         # Locators
         # Visible page title for sanity checks on the correct page load
@@ -25,13 +27,13 @@ class AmLoginPage(AmBasePage):
         # Password input field
         self.password_input = "//input[@name='password']"
         # Submit button for the login form
-        self.button = "//button[type='submit']"
+        self.button = "//button[@type='submit']"
         # Ancillary links on the login page
         self.forgot_password_link = "//a[@href='#/restorePassword']"
         self.create_an_account = "//a[@href='#/register']"
         self.go_to_login = "//a[@href='/']"
         # CSS selector for error messages shown on failed login attempts
-        self.error_message = ".error-message"
+        self.login_error_message = "//p[text()='Sorry, unrecognized username or password.']"
 
     def navigate_to_login(self):
         """
@@ -41,8 +43,21 @@ class AmLoginPage(AmBasePage):
         # verify_page is expected to be provided by the base page hierarchy
         self.verify_page()
 
-    def enter_password(self, password):
+    def enter_email(self, email=None):
+        """
+        Enter an email into the email input field.
+
+        Args:
+            email (str): The email address to type into the field.
+        """
+        if not email:
+            email = self.email
+        self.fill_input(self.email_input, email)
+
+    def enter_password(self, password=None):
         """Type the password into the password input field."""
+        if not password:
+            password = self.password
         self.fill_input(self.password_input, password)
 
     def login(self, email, password):
@@ -54,9 +69,9 @@ class AmLoginPage(AmBasePage):
         self.enter_password(password)
         self.click_button()
 
-    def get_error_message(self):
+    def get_login_error_message(self):
         """Return text of an error message if visible, else None."""
-        return self.get_element_text(self.error_message)
+        return self.get_element_text(self.login_error_message)
 
     def click_forgot_password(self):
         """Navigate to the password recovery page."""

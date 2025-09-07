@@ -17,14 +17,14 @@ class AmBasePage:
       - wait_for_selector(selector): wait until an element is present/visible
     """
 
-    def __init__(self, page):
+    def __init__(self, context):
         """
         Initialize the base page with a browser `page` object.
 
         Args:
-            page: An object exposing Playwright methods used in this class.
+            context: An object exposing Playwright methods used in this class.
         """
-        self.page = page
+        self.page = context.page
 
         # Commonly reused selectors across pages:
         self.page_title = "h1"  # Page heading (CSS)
