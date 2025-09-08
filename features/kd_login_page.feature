@@ -4,7 +4,7 @@ Feature: KD - Login Page Scenarios
   So that I can access my account or recover it if needed
 
   Background:
-    Given I am on the login page
+    Given kd I am on the dev environment login page
 
   @kd @login
   Scenario: Forgot password link navigates to reset page
@@ -20,13 +20,14 @@ Feature: KD - Login Page Scenarios
 
   @kd @login
   Scenario: Login with valid credentials
-    When I enter a valid email and password
-    And I click the "Login" button
-    Then I should be redirected to the KD dashboard
+    When kd I enter "katedtest@gmail.com" in the email field
+    And kd I enter "1234567890" in the password field
+    And kd I click the "Login" button
+    Then kd I should be redirected to the dashboard
 
-  @kd @login
+  @kd @negative @login
   Scenario: Login with invalid credentials
-    When I enter an invalid email or password
-    And I click the "Login" button
+    When kd I enter "katedtest@gmail.com" in the email field
+    And kd I enter "12345" in the password field
+    And kd I click the "Login" button
     Then I should see an error message "Sorry, unrecognized username or password"
-

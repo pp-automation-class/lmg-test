@@ -18,6 +18,7 @@ class KdLoginPage(KdBasePage):
         self.forgot_password_link = "//a[text()='Forgot password?']"
         self.create_account_link = "//a[text()='Create an account']"
         self.validation_message = "//p[contains(text(), 'Sorry')]"
+        self.dashboard_page = "//h3[contains(text(), 'My devices')]"
 
     # Navigation
     def kd_navigate_to_login(self, url: str) -> None:
@@ -52,3 +53,8 @@ class KdLoginPage(KdBasePage):
 
     def kd_verify_title_contains(self, expected_text: str) -> bool:
         return self.kd_verify_page_title(expected_text)
+
+    def kd_verify_dashboard_page(self, xpath: str = None) -> bool:
+        """Check if an element exists on the page by xpath. If not provided, use default dashboard xpath."""
+        xpath = xpath or self.dashboard_page
+        return self.kd_element_exists(xpath, wait=True)

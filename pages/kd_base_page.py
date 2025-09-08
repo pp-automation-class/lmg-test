@@ -34,3 +34,11 @@ class KdBasePage:
         if actual_title:
             return expected_title.lower() in actual_title.lower()
         return False
+
+    def kd_element_exists(self, xpath: str, wait: bool = False, timeout: int = 5000) -> bool:
+        try:
+            if wait:
+                self.page.wait_for_selector(xpath, timeout=timeout)
+            return self.page.locator(xpath).is_visible()
+        except Exception:
+            return False
