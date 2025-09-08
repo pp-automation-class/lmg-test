@@ -30,4 +30,4 @@ Feature: KD - Login Page Scenarios
     When kd I enter "katedtest@gmail.com" in the email field
     And kd I enter "12345" in the password field
     And kd I click the "Login" button
-    Then I should see an error message "Sorry, unrecognized username or password"
+    Then kd I should see an error message "Sorry, unrecognized username or password"
