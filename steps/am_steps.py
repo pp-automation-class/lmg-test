@@ -176,7 +176,7 @@ def am_dont_fill_restore_email_field(context):
     restore_page.click_element(restore_page.forgot_password_email_input_selector)
 
 
-@step("am: I get the empty restore email error message")
+@step('am: I get "The empty restore email" error message')
 def am_get_empty_restore_email_error(context):
     """
     :type context: behave.runner.Context
@@ -190,7 +190,7 @@ def am_enter_restore_email(context, email):
     restore_page.enter_email(email)
 
 
-@step("am: I get the wrong format restore email error message")
+@step('am: I get "The wrong format restore email" error message')
 def am_get_wrong_format_restore_email_error(context):
     """
     :type context: behave.runner.Context
@@ -248,7 +248,7 @@ def am_fill_existed_email(context):
     create_page.enter_email(create_page.email)
 
 
-@step("am: I get user already exists error message")
+@step('am: I get "The user already exists" error message')
 def get_user_already_exists_error_message(context):
     """
     :type context: behave.runner.Context
@@ -257,7 +257,7 @@ def get_user_already_exists_error_message(context):
     create_page.get_user_already_exists_error_message()
 
 
-@step("am: I get empty email error message")
+@step('am: I get "Please enter you email address" error message')
 def get_empty_email_error_message(context):
     """
     :type context: behave.runner.Context
@@ -272,7 +272,7 @@ def am_enter_some_email(context, email):
     create_page.enter_email(email)
 
 
-@step("am: I get enter a valid email error message")
+@step('am: I get "Please enter a valid email address" error message')
 def get_enter_valid_email_error_message(context):
     """
     :type context: behave.runner.Context
@@ -297,3 +297,20 @@ def am_click_reg_email_label(context):
     """
     create_page = AmCreateAccountPage(context)
     create_page.click_element(create_page.email_label_selector)
+
+
+@step("am: I login with valid credentials")
+def am_login_with_valid_credentials(context):
+    """
+    :type context: behave.runner.Context
+    """
+    AmLoginPage(context).login()
+
+
+@step("am: I Check List of devices")
+def am_list_of_devices(context):
+    """
+    :type context: behave.runner.Context
+    """
+    _list = AmDevicesPage(context).get_devices_list()
+    print(_list)

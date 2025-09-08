@@ -70,7 +70,7 @@ class AmLoginPage(AmBasePage):
             password = self.password
         self.fill_input(self.password_input, password)
 
-    def login(self, email, password):
+    def login(self, email=None, password=None):
         """Complete the login flow by entering credentials and submitting.
 
         Assumes enter_email and click_button are defined in parent classes.

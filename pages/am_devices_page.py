@@ -14,7 +14,8 @@ LOGOUT_LINK = "//a/span[.='Log out']"
 NOTIFICATIONS_BUTTON = "//button[contains(@class,'profile-btn')]"
 RESEND_ACTIVATION_BUTTON = "//button[contains(.,'Resend activation link')]"
 DEMO_JUMP_BUTTON = "//button[contains(.,'Demo Jump')]"
-
+DEVICES_NAMES_LOCATOR = "//div[@class='lmg-device']/div/h4"
+DEVICES_BUTTONS_LOCATOR = "//div[@class='lmg-device']/div/button[.='Upload Logs']"
 
 class AmDevicesPage(AmBasePage):
     """Page Object for the Account Manager main page ("My device")."""
@@ -77,29 +78,20 @@ class AmDevicesPage(AmBasePage):
         """Click the demo jump button."""
         self.click_element(self.demo_jump_button)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    def click_device_settings(self):
-        """Navigate to the account registration page."""
-        self.click_element(self.device_settings_link)
+    """
+    Get devices elements
+    """
+    def get_devices_list(self):
+        dev_list = [] #result
+        """Get a list of device names displayed on the page."""
+        names = self.page.locator(DEVICES_NAMES_LOCATOR)
+        buttons = self.page.locator(DEVICES_BUTTONS_LOCATOR)
+        # Wait until at least one element is present (optional but recommended)
+        names.first.wait_for()
+        buttons.first.wait_for()
+        #Get count and iterate
+        count = names.count()
+        if count == buttons.count() and count > 0:
+            for i in range(count):
+                dev_list.append([names.nth(i).inner_text(), buttons.nth(i)])
+        return dev_list

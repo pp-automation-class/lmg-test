@@ -20,16 +20,16 @@ Feature: am: Create Account
     When am: I fill an existed email in email input field
     And  am: I check the terms and conditions checkbox
     And  am: I click on "Register" button
-    Then am: I get user already exists error message
+    Then am: I get "The user already exists" error message
 
   @negative @registration
   Scenario: am: Failed User registration with empty email
     When am: I click on registration email label to trigger validation
     And  am: I check the terms and conditions checkbox
-    Then am: I get empty email error message
+    Then am: I get "Please enter you email address" error message
 
   @negative @registration
   Scenario: am: Failed User registration with wrong format email
     When am: I fill "Wrong.email" in email input field
     And  am: I check the terms and conditions checkbox
-    Then am: I get enter a valid email error message
+    Then am: I get "Please enter a valid email address" error message
