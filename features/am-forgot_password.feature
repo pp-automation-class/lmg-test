@@ -1,4 +1,4 @@
-Feature: Forgot Password
+Feature: am: Forgot Password
   As a user who forgot their password
   I want to reset my password
   So that I can regain access to my account
@@ -8,7 +8,7 @@ Feature: Forgot Password
     When  am: I click on "Forgot password" link
     Then  am: I wait for "Restore Password" form to be visible
 
-  @smoke @forgot_password
+  @smoke @forgot_password @positive
   Scenario: am: Successful request with valid email
     When am: I fill valid email in the restore email field
     And  am: I click on "Send" button

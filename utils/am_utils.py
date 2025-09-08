@@ -1,3 +1,10 @@
+import random
+import string
+
+
+def random_email():
+    return "".join(random.choice(string.ascii_letters) for _ in range(7)) + "@gmail.com"
+
 def am_get_enviroment(env: str, item: str) -> str:
     environments = {
       "prod": {

@@ -1,4 +1,4 @@
-Feature: Login
+Feature: am: Login
   As a registered user
   I want to log into the application
   So I can access my account and fratures
@@ -6,7 +6,7 @@ Feature: Login
   Background:
     Given am: I navigate to the dev environment login page
 
-  @smoke @login
+  @smoke @login @positive
   Scenario: am: Successful login with valid credentials
     Given am: I enter valid email in the email field
     And   am: I enter valid password in the password field

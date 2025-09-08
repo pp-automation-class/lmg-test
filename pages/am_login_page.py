@@ -13,11 +13,7 @@ GO_TO_LOGIN_LINK = "//a[@href='/']"
 LOGIN_ERROR_MESSAGE = "//p[text()='Sorry, unrecognized username or password.']"
 EMPTY_EMAIL_ERROR_MESSAGE = "//div[text()='Email is required']"
 EMPTY_PASSWORD_ERROR_MESSAGE = "//div[text()='Password is required']"
-FORGOT_PASSWORD_EMAIL_INPUT_SELECTOR = "//input[@class='el-input__inner']"
-FORGOT_PASSWORD_LOGIN_BUTTON_SELECTOR = "//button[text()=' Send ']"
-FORGOT_PASSWORD_SEND_RESULT_MESSAGE = "//p[.='Unable to send email. Contact the site administrator if the problem persists.']"
-EMPTY_RESTORE_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter you email address']"
-WRONG_FORMAT_RESTORE_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter a valid email address']"
+
 
 class AmLoginPage(AmBasePage):
     """Page Object Model for Account Manager Login page.
@@ -59,11 +55,6 @@ class AmLoginPage(AmBasePage):
         # CSS selector for an error message shown when password is empty
         self.empty_password_error_message = EMPTY_PASSWORD_ERROR_MESSAGE
         # CSS selectors for elements on the password recovery page
-        self.forgot_password_email_input_selector = FORGOT_PASSWORD_EMAIL_INPUT_SELECTOR
-        self.forgot_password_login_button_selector = FORGOT_PASSWORD_LOGIN_BUTTON_SELECTOR
-        self.forgot_password_send_result_message = FORGOT_PASSWORD_SEND_RESULT_MESSAGE
-        self.empty_restore_email_error_message = EMPTY_RESTORE_EMAIL_ERROR_MESSAGE
-        self.wrong_format_restore_email_error_message = WRONG_FORMAT_RESTORE_EMAIL_ERROR_MESSAGE
 
     def navigate_to_login(self):
         """
@@ -72,17 +63,6 @@ class AmLoginPage(AmBasePage):
         self.navigate(self.url)
         # verify_page is expected to be provided by the base page hierarchy
         self.verify_page()
-
-    def enter_email(self, email=None):
-        """
-        Enter an email into the email input field.
-
-        Args:
-            email (str): The email address to type into the field.
-        """
-        if not email:
-            email = self.email
-        self.fill_input(self.email_input, email)
 
     def enter_password(self, password=None):
         """Type the password into the password input field."""

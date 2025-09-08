@@ -103,14 +103,17 @@ class AmBasePage:
         """Uncheck the checkbox"""
         self.page.locator(selector).uncheck()
 
-    def enter_email(self, email):
+    def enter_email(self, email=None):
         """
         Enter an email into the email input field.
 
         Args:
             email (str): The email address to type into the field.
         """
+        if not email:
+            email = self.email
         self.fill_input(self.email_input, email)
+
 
     def click_button(self):
         """

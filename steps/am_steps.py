@@ -1,8 +1,12 @@
 import time
 
 from behave import step
+
+from pages.am_create_account_page import AmCreateAccountPage
 from pages.am_login_page import AmLoginPage
 from pages.am_devices_page import AmDevicesPage
+from pages.am_restore_password_page import AmRestorePasswordPage
+from utils.am_utils import random_email
 
 
 @step("am: I navigate to the {env} environment login page")
@@ -124,8 +128,8 @@ def am_wait_for_restore_password_form(context):
     """
     :type context: behave.runner.Context
     """
-    login_page = AmLoginPage(context)
-    login_page.verify_page(login_page.restore_password_title)
+    restore_page = AmRestorePasswordPage(context)
+    restore_page.verify_page()
 
 
 @step("am: I fill valid email in the restore email field")
@@ -133,8 +137,8 @@ def am_fill_valid_email(context):
     """
     :type context: behave.runner.Context
     """
-    login_page = AmLoginPage(context)
-    login_page.fill_input(login_page.forgot_password_email_input_selector, login_page.email)
+    restore_page = AmRestorePasswordPage(context)
+    restore_page.enter_email()
 
 
 @step('am: I click on "Send" button')
@@ -142,8 +146,8 @@ def am_click_send_button(context):
     """
     :type context: behave.runner.Context
     """
-    login_page = AmLoginPage(context)
-    login_page.click_element(login_page.forgot_password_login_button_selector)
+    restore_page = AmRestorePasswordPage(context)
+    restore_page.click_button()
 
 @step("am: I wait for {sec} seconds")
 def am_wait_for_some_seconds(context, sec):
@@ -159,8 +163,8 @@ def am_get_send_result_message(context):
     """
     :type context: behave.runner.Context
     """
-    login_page = AmLoginPage(context)
-    login_page.verify_page(login_page.forgot_password_send_result_message)
+    restore_page = AmRestorePasswordPage(context)
+    restore_page.get_forgot_password_send_result_message()
 
 
 @step("am: I don't fill the restore email field")
@@ -168,8 +172,8 @@ def am_dont_fill_restore_email_field(context):
     """
     :type context: behave.runner.Context
     """
-    login_page = AmLoginPage(context)
-    login_page.click_element(login_page.forgot_password_email_input_selector)
+    restore_page = AmRestorePasswordPage(context)
+    restore_page.click_element(restore_page.forgot_password_email_input_selector)
 
 
 @step("am: I get the empty restore email error message")
@@ -177,13 +181,13 @@ def am_get_empty_restore_email_error(context):
     """
     :type context: behave.runner.Context
     """
-    AmLoginPage(context).get_empty_restore_email_error_message()
+    AmRestorePasswordPage(context).get_empty_restore_email_error_message()
 
 
 @step('am: I fill "{email}" in the restore email field')
 def am_enter_restore_email(context, email):
-    login_page = AmLoginPage(context)
-    login_page.fill_input(login_page.forgot_password_email_input_selector, email)
+    restore_page = AmRestorePasswordPage(context)
+    restore_page.enter_email(email)
 
 
 @step("am: I get the wrong format restore email error message")
@@ -191,4 +195,87 @@ def am_get_wrong_format_restore_email_error(context):
     """
     :type context: behave.runner.Context
     """
-    AmLoginPage(context).get_wrong_format_restore_email_error_message()
+    restore_page = AmRestorePasswordPage(context)
+    restore_page.get_wrong_format_restore_email_error_message()
+
+@step('am: I click on "Create an account" link')
+def am_click_create_an_account(context):
+    """
+    :type context: behave.runner.Context
+    """
+    AmLoginPage(context).click_create_an_account()
+
+
+@step('am: I wait for "Create an Account" form to be visible')
+def am_wait_for_create_an_account_form(context):
+    """
+    :type context: behave.runner.Context
+    """
+    create_page = AmCreateAccountPage(context)
+    create_page.verify_page()
+
+
+@step("am: I fill a random email in email input field")
+def am_enter_random_email(context):
+    create_page = AmCreateAccountPage(context)
+    create_page.enter_email(random_email())
+
+
+@step("am: I check the terms and conditions checkbox")
+def am_check_terms_checkbox(context):
+    """
+    :type context: behave.runner.Context
+    """
+    create_page = AmCreateAccountPage(context)
+    create_page.check(create_page.checkbox_accept)
+
+
+@step('am: I click on "Register" button')
+def am_click_register_button(context):
+    """
+    :type context: behave.runner.Context
+    """
+    create_page = AmCreateAccountPage(context)
+    create_page.click_button()
+
+
+@step("am: I fill an existed email in email input field")
+def am_fill_existed_email(context):
+    """
+    :type context: behave.runner.Context
+    """
+    create_page = AmCreateAccountPage(context)
+    create_page.enter_email(create_page.email)
+
+
+@step("am: I get user already exists error message")
+def get_user_already_exists_error_message(context):
+    """
+    :type context: behave.runner.Context
+    """
+    create_page = AmCreateAccountPage(context)
+    create_page.get_user_already_exists_error_message()
+
+
+@step("am: I get empty email error message")
+def get_empty_email_error_message(context):
+    """
+    :type context: behave.runner.Context
+    """
+    create_page = AmCreateAccountPage(context)
+    create_page.get_empty_email_error_message()
+
+
+@step('am: I fill "{email}" in email input field')
+def am_enter_some_email(context, email):
+    create_page = AmCreateAccountPage(context)
+    create_page.enter_email(email)
+
+
+@step("am: I get enter a valid email error message")
+def get_enter_valid_email_error_message(context):
+    """
+    :type context: behave.runner.Context
+    """
+    create_page = AmCreateAccountPage(context)
+    create_page.get_enter_valid_email_error_message()
