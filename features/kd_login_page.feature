@@ -8,15 +8,15 @@ Feature: KD - Login Page Scenarios
 
   @kd @login
   Scenario: Forgot password link navigates to reset page
-    When I click the "Forgot Password?" link
-    Then I should be redirected to the KD password restore page
-    And I should see "Restore Password" heading
+    When kd I click on forget the password link
+    Then kd I should be redirected to password restore page
+    And kd I should see "Restore Password" heading
 
   @kd @login
   Scenario: "Create an account" link navigates to registration page
-    When I click the "Create an account" link
-    Then I should be redirected to the KD registration page
-    And I should see "Create an Account" heading
+    When kd I click the "Create an account" link
+    Then kd I should be redirected to registration page
+    And kd I should see "Create an Account" heading
 
   @kd @login
   Scenario: Login with valid credentials

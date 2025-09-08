@@ -17,6 +17,7 @@ class KdLoginPage(KdBasePage):
         self.login_button = "//button[text()=' Login ']"
         self.forgot_password_link = "//a[text()='Forgot password?']"
         self.create_account_link = "//a[text()='Create an account']"
+        self.restore_password_link = "//h5[text()='Restore Password']"
         self.validation_message = "//p[contains(text(), 'Sorry')]"
         self.dashboard_page = "//h3[contains(text(), 'My devices')]"
         self.error_message = "//p[contains(text(), 'Sorry, unrecognized username or password')]"
@@ -59,5 +60,3 @@ class KdLoginPage(KdBasePage):
         """Check if an element exists on the page by xpath. If not provided, use default dashboard xpath."""
         xpath = xpath or self.dashboard_page
         return self.kd_element_exists(xpath, wait=True)
-
-

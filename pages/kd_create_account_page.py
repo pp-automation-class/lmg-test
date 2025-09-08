@@ -46,3 +46,6 @@ class KdCreateAccountPage(KdBasePage):
     # Validation helpers
     def kd_get_validation_text(self):
         return self.kd_get_element_text(self.validation_message)
+
+    def kd_verify_title_contains(self, expected_text: str) -> bool:
+        return self.kd_verify_page_title(expected_text)
