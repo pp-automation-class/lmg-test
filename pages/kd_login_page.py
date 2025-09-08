@@ -19,6 +19,7 @@ class KdLoginPage(KdBasePage):
         self.create_account_link = "//a[text()='Create an account']"
         self.validation_message = "//p[contains(text(), 'Sorry')]"
         self.dashboard_page = "//h3[contains(text(), 'My devices')]"
+        self.error_message = "//p[contains(text(), 'Sorry, unrecognized username or password')]"
 
     # Navigation
     def kd_navigate_to_login(self, url: str) -> None:
@@ -58,3 +59,5 @@ class KdLoginPage(KdBasePage):
         """Check if an element exists on the page by xpath. If not provided, use default dashboard xpath."""
         xpath = xpath or self.dashboard_page
         return self.kd_element_exists(xpath, wait=True)
+
+

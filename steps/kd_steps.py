@@ -38,7 +38,14 @@ def kd_click_login_button(context, button_text):
     login_page.kd_click_login()
 
 
-@step('kd I should be redirected to the dashboard')
+@step('kd I should be redirected to the dashboard page')
 def kd_verify_dashboard_page(context):
     login_page = KdLoginPage(context.page)
     assert login_page.kd_verify_dashboard_page(), "Dashboard page was not detected."
+
+
+@step('I should see an error message "Sorry, unrecognized username or password"')
+def kd_error_login_message(context):
+    login_page = KdLoginPage(context.page)
+    # Wait for the error message to appear and check visibility
+    assert login_page.verify_element_exists(login_page.error_message, wait=True), "Error message was not displayed."

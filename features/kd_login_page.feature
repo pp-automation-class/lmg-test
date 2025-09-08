@@ -23,7 +23,7 @@ Feature: KD - Login Page Scenarios
     When kd I enter "katedtest@gmail.com" in the email field
     And kd I enter "1234567890" in the password field
     And kd I click the "Login" button
-    Then kd I should be redirected to the dashboard
+    Then kd I should be redirected to the dashboard page
 
   @kd @negative @login
   Scenario: Login with invalid credentials
