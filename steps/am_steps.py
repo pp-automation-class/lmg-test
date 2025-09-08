@@ -149,6 +149,7 @@ def am_click_send_button(context):
     restore_page = AmRestorePasswordPage(context)
     restore_page.click_button()
 
+
 @step("am: I wait for {sec} seconds")
 def am_wait_for_some_seconds(context, sec):
     """
@@ -197,6 +198,7 @@ def am_get_wrong_format_restore_email_error(context):
     """
     restore_page = AmRestorePasswordPage(context)
     restore_page.get_wrong_format_restore_email_error_message()
+
 
 @step('am: I click on "Create an account" link')
 def am_click_create_an_account(context):

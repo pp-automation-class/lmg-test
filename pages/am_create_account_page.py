@@ -11,6 +11,7 @@ EMPTY_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter you email address']"
 ENTER_VALID_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter a valid email address']"
 EMAIL_LABEL_SELECTOR = "//label[text()='Your Email']"
 
+
 class AmCreateAccountPage(AmBasePage):
     """Page Object for the 'Create an Account' screen.
 

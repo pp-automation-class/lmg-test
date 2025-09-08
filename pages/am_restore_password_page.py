@@ -8,6 +8,7 @@ EMPTY_RESTORE_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter you email addres
 WRONG_FORMAT_RESTORE_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter a valid email address']"
 EMAIL_LABEL_SELECTOR = "//label[text()='Your Email']"
 
+
 class AmRestorePasswordPage(AmBasePage):
     """
     Page Object representing the 'Restore Password' screen.

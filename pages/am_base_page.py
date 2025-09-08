@@ -114,7 +114,6 @@ class AmBasePage:
             email = self.email
         self.fill_input(self.email_input, email)
 
-
     def click_button(self):
         """
         Click a generic button using the shared button selector.

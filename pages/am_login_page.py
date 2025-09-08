@@ -104,4 +104,3 @@ class AmLoginPage(AmBasePage):
 
     def get_wrong_format_restore_email_error_message(self):
         return self.verify_page(self.wrong_format_restore_email_error_message)
-
