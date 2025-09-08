@@ -9,6 +9,7 @@ TERMS_AND_CONDITIONS_LINK = "//a[.='Terms and Conditions']"
 USER_ALREADY_EXISTS_ERROR_MESSAGE = "//p[contains(text(), 'The user already exists')]"
 EMPTY_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter you email address']"
 ENTER_VALID_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter a valid email address']"
+EMAIL_LABEL_SELECTOR = "//label[text()='Your Email']"
 
 class AmCreateAccountPage(AmBasePage):
     """Page Object for the 'Create an Account' screen.
@@ -36,6 +37,7 @@ class AmCreateAccountPage(AmBasePage):
         self.user_already_exists_error_message = USER_ALREADY_EXISTS_ERROR_MESSAGE
         self.empty_email_error_message = EMPTY_EMAIL_ERROR_MESSAGE
         self.enter_valid_email_error_message = ENTER_VALID_EMAIL_ERROR_MESSAGE
+        self.email_label_selector = EMAIL_LABEL_SELECTOR
 
     def create_account(self, email):
         """Fill email, accept terms, and submit the registration form."""

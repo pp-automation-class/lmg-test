@@ -6,6 +6,7 @@ FORGOT_PASSWORD_LOGIN_BUTTON_SELECTOR = "//button[text()=' Send ']"
 FORGOT_PASSWORD_SEND_RESULT_MESSAGE = "//p[.='Unable to send email. Contact the site administrator if the problem persists.']"
 EMPTY_RESTORE_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter you email address']"
 WRONG_FORMAT_RESTORE_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter a valid email address']"
+EMAIL_LABEL_SELECTOR = "//label[text()='Your Email']"
 
 class AmRestorePasswordPage(AmBasePage):
     """
@@ -19,6 +20,7 @@ class AmRestorePasswordPage(AmBasePage):
         super().__init__(context)
 
         # Locators for elements on the Restore Password page:
+        self.email_label_selector = EMAIL_LABEL_SELECTOR
         self.page_title = (
             # Page header used to verify the correct page
             "//h5[text()='Restore Password']"

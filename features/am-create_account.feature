@@ -24,8 +24,8 @@ Feature: am: Create Account
 
   @negative @registration
   Scenario: am: Failed User registration with empty email
-    When am: I check the terms and conditions checkbox
-    And  am: I click on "Register" button
+    When am: I click on registration email label to trigger validation
+    And  am: I check the terms and conditions checkbox
     Then am: I get empty email error message
 
   @negative @registration

@@ -279,3 +279,21 @@ def get_enter_valid_email_error_message(context):
     """
     create_page = AmCreateAccountPage(context)
     create_page.get_enter_valid_email_error_message()
+
+
+@step("am: I click on email label to trigger validation")
+def am_click_email_label(context):
+    """
+    :type context: behave.runner.Context
+    """
+    restore_page = AmRestorePasswordPage(context)
+    restore_page.click_element(restore_page.email_label_selector)
+
+
+@step("am: I click on registration email label to trigger validation")
+def am_click_reg_email_label(context):
+    """
+    :type context: behave.runner.Context
+    """
+    create_page = AmCreateAccountPage(context)
+    create_page.click_element(create_page.email_label_selector)
