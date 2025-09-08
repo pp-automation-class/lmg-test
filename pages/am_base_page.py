@@ -25,7 +25,7 @@ class AmBasePage:
             context: An object exposing Playwright methods used in this class.
         """
         self.page = context.page
-
+        self.email = ""
         # Commonly reused selectors across pages:
         self.page_title = "h1"  # Page heading (CSS)
         self.email_input = "//input[@type='email']"  # Email input (XPath)
