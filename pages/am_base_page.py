@@ -17,15 +17,15 @@ class AmBasePage:
       - wait_for_selector(selector): wait until an element is present/visible
     """
 
-    def __init__(self, page):
+    def __init__(self, context):
         """
         Initialize the base page with a browser `page` object.
 
         Args:
-            page: An object exposing Playwright methods used in this class.
+            context: An object exposing Playwright methods used in this class.
         """
-        self.page = page
-
+        self.page = context.page
+        self.email = ""
         # Commonly reused selectors across pages:
         self.page_title = "h1"  # Page heading (CSS)
         self.email_input = "//input[@type='email']"  # Email input (XPath)
@@ -86,12 +86,14 @@ class AmBasePage:
             return self.page.text_content(selector)
         return None
 
-    def verify_page(self):
+    def verify_page(self, selector=None):
         """
         Wait until the page is considered loaded by ensuring the title element
         is present/visible in the DOM.
         """
-        self.page.wait_for_selector(self.page_title)
+        if not selector:
+            selector = self.page_title
+        self.page.wait_for_selector(selector)
 
     def check(self, selector: str) -> None:
         """Check the checkbox"""
@@ -101,13 +103,15 @@ class AmBasePage:
         """Uncheck the checkbox"""
         self.page.locator(selector).uncheck()
 
-    def enter_email(self, email):
+    def enter_email(self, email=None):
         """
         Enter an email into the email input field.
 
         Args:
             email (str): The email address to type into the field.
         """
+        if not email:
+            email = self.email
         self.fill_input(self.email_input, email)
 
     def click_button(self):
