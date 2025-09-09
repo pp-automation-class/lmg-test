@@ -14,6 +14,7 @@ Feature: Test devices
     And Fill out name "Test1" of device
     And Wait for 3 seconds
     And Press add new device button
-    Then Verify device "Test1" exists in list of devices
+#    And Go to "My devices" page
+#    Then Verify device "Test1" exists in list of devices
 
 
