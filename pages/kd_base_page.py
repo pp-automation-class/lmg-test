@@ -9,6 +9,10 @@ class KdBasePage:
         self.page = page
         self.page_title = "//h5"
 
+        self.menu_item_devices = "//a[text()='Devices']"
+        self.menu_item_records = "//a[text()='Records']"
+        self.menu_item_logbook = "//a[text()='LogBook']"
+
     def kd_navigate(self, url):
         """Navigate to a specific URL"""
         self.page.goto(url)
@@ -44,5 +48,24 @@ class KdBasePage:
         except Exception:
             return False
 
-    def verify_element_exists(self, xpath, wait: bool = False):
+    def kd_verify_element_exists(self, xpath, wait: bool = False):
         return self.kd_element_exists(xpath, wait=wait)
+
+    def kd_get_menu_item_locator(self, menu_item: str):
+        return f"//a[text()='{menu_item}']"
+
+
+    def kd_open_menu(self, menu_item: str):
+        """Open a menu item by its text"""
+
+        if menu_item == "Devices":
+            self.kd_click_element(self.menu_item_devices)
+        elif menu_item == "Records":
+            self.kd_click_element(self.menu_item_records)
+        elif menu_item == "LogBook":
+            self.kd_click_element(self.menu_item_logbook)
+        else:
+            raise ValueError(f"Invalid menu item: {menu_item}")
+
+        self.kd_click_element(self.kd_get_menu_item_locator(menu_item))
+
