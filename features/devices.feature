@@ -6,11 +6,11 @@ Feature: Test devices
     And I enter "1234567" in the password field
     And I click the login button
 
-  Scenario: Create new device
+  Scenario:
     Then Verify I on "My devices" page
     When I open Devices Settings
     And Press Add new device button
-    And Choose "AirGuard Other" device type
+    And Choose "Airguard other" device type
     And Fill out name "Test1" of device
     And Press add new device button
     Then Verify device "Test1" exists in list of devices
