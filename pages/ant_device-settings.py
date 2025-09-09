@@ -17,3 +17,6 @@ class AntDevicePage(BasePage):
         self.device_airguard = "//li[.//span[text()='Airguard other']]"
         self.device_name_field = "//input[@class='el-input__inner']"
         self.add_new_device_button = "//div[@class='form-submit']/button[.//span[text()='Add new device']]"
+        self.delete_device_modal = "//h3[@class='modal-title' and text()='Delete device']"
+        self.confirm_delete_button = "//button[text()='Delete']"
+        self.delete_confirmation_message = "//*[contains(@class, 'el-message__content') and contains(text(), 'Device deleted')]"
