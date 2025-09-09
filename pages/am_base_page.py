@@ -93,7 +93,10 @@ class AmBasePage:
         """
         if not selector:
             selector = self.page_title
-        self.page.wait_for_selector(selector)
+        try:
+            self.page.wait_for_selector(selector, timeout=3000)
+        except Exception as e:
+            assert False, f"Page title not found: {e}"
 
     def check(self, selector: str) -> None:
         """Check the checkbox"""

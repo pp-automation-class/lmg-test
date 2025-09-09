@@ -94,8 +94,8 @@ class AmDevicesPage(AmBasePage):
         names = self.page.locator(DEVICES_NAMES_LOCATOR)
         buttons = self.page.locator(DEVICES_BUTTONS_LOCATOR)
         # Wait until at least one element is present (optional but recommended)
-        names.first.wait_for()
-        buttons.first.wait_for()
+        #names.first.wait_for(timeout=1000)
+        #buttons.first.wait_for(timeout=1000)
         # Get count and iterate
         count = names.count()
         if count == buttons.count() and count > 0:

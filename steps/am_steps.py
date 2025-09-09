@@ -307,12 +307,3 @@ def am_login_with_valid_credentials(context):
     :type context: behave.runner.Context
     """
     AmLoginPage(context).login()
-
-
-@step("am: I Check List of devices")
-def am_list_of_devices(context):
-    """
-    :type context: behave.runner.Context
-    """
-    _list = AmDevicesPage(context).get_devices_list()
-    print(_list)

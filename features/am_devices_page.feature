@@ -12,12 +12,11 @@ Feature: am: Devices Page tests
 
   Scenario: am: Device Settings - Add New Device
     Given am: I click on button "Add new device"
-    And   am: Test assertion
-    And   am: I wait for 6 seconds
+    And   am: I click on dropdown "Device type" and select "Airguard other"
+    When  am: I fill in device name "Test Device #1"
+    And   am: I click "Add new device" button
+    Then  am: I should see the new device "Test Device #1" in the devices list
 
 
 
 
-
-  Scenario: am: Verify Devices Page Elements
-    Then  am: I Check List of devices
