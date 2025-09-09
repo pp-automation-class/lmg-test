@@ -137,5 +137,5 @@ dmypy.json
 # Cython
 cython_debug/
 
-CLAUDE.md
+
 .claude
