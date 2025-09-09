@@ -12,6 +12,7 @@ Feature: Test devices
     And Press Add new device button
     And Choose "Airguard other" device type
     And Fill out name "Test1" of device
+    And Wait for 3 seconds
     And Press add new device button
     Then Verify device "Test1" exists in list of devices
 
