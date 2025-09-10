@@ -88,7 +88,7 @@ def am_click_add_new_device(context):
 
 
 @step('am: I should see the device "{name}" in the devices list')
-def step_impl(context, name: str):
+def am_device_name_exists(context, name: str):
     """
     :param name:
     :type context: behave.runner.Context
@@ -135,6 +135,7 @@ def am_click_delete_button(context):
 @step('am: I get a notification "{text}"')
 def am_get_notification(context, text: str):
     """
+    :param text:
     :type context: behave.runner.Context
     """
     AmDevicesSettingsPage(context).get_notification(text)
