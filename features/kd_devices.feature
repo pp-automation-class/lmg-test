@@ -18,20 +18,25 @@ Feature: LinkMyGear Add New Device
 #    Then I verify element "//span[text()='iPhone 16 Pro']" exists
 
   Scenario: Add new device
-    Then Verify I on "My devices" page
-    When I open Devices Settings
-    And Press Add new device button
-    And Choose "Airguard other" device type
-    And Fill out name "Test1" of device
-    And Wait for 3 seconds
-    And Press add new device button
+    Then kd Verify I on "My devices" page
+    When kd I open Devices Settings
+    And kd Press Add new device button
+    And kd Choose "Airguard other" device type
+    And kd Fill out name "Test1" of device
+    And kd Press add new device button
     And Go to "My devices" page
-    Then Verify device "Test1" exists in list of devices
+    Then kd Verify device "Test1" exists in list of devices
+
+#  Scenario: Delete added device
+#    When I click on "//a[@class='section-title__icon']"
+#    Then I verify element "//h3" contains text "Devices Settings"
+#    And I verify element "//span[text()='iPhone 16 Pro']" exists
+#    When I click on "//tr[@class='el-table__row' and .//span[text()='iPhone 16 Pro']]//button[text()=' Delete ']"
+#    Then I verify element "//h3[text()='Delete device']" exists
+#    When I click on "//button[text()='Delete']"
 
   Scenario: Delete added device
-    When I click on "//a[@class='section-title__icon']"
-    Then I verify element "//h3" contains text "Devices Settings"
-    And I verify element "//span[text()='iPhone 16 Pro']" exists
-    When I click on "//tr[@class='el-table__row' and .//span[text()='iPhone 16 Pro']]//button[text()=' Delete ']"
-    Then I verify element "//h3[text()='Delete device']" exists
-    When I click on "//button[text()='Delete']"
+    Then kd Verify I on "My devices" page
+    When kd I open Devices Settings
+    And kd Delete device "Test1"
+    Then kd Verify device "Test1" is not in list of devices
