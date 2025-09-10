@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-class BasePage(ABC):
+class LindaBasePage(ABC):
     """
     Base Page Object class that all page objects should inherit from.
     Provides common functionality and enforces consistent patterns.
