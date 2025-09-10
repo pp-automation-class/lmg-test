@@ -83,14 +83,58 @@ def am_click_add_new_device(context):
     """
     :type context: behave.runner.Context
     """
-    AmDevicesSettingsPage(context).click_add_new_device_button_in_add_form()
     logging.info("Add new device button clicked")
+    AmDevicesSettingsPage(context).click_add_new_device_button_in_add_form()
 
 
-@step('am: I should see the new device "{name}" in the devices list')
+@step('am: I should see the device "{name}" in the devices list')
 def step_impl(context, name: str):
     """
     :param name:
     :type context: behave.runner.Context
     """
     AmDevicesSettingsPage(context).device_name_exists(name)
+
+
+@step('am: I click on button "Edit" for device "{name}"')
+def am_click_edit_device(context, name: str):
+    """
+    :param name:
+    :type context: behave.runner.Context
+    """
+    logging.debug(f"Clicking on Edit button for device '{name}'")
+    AmDevicesSettingsPage(context).click_edit_device(name)
+
+
+@step('am: I click "Update" button')
+def am_click_update(context):
+    """
+    :type context: behave.runner.Context
+    """
+    logging.info("Add update button clicked")
+    AmDevicesSettingsPage(context).click_update_button_in_add_form()
+
+
+@step('am: I click on button "Delete" for device "{name}"')
+def am_click_delete_device(context, name: str):
+    """
+    :param name:
+    :type context: behave.runner.Context
+    """
+    AmDevicesSettingsPage(context).click_delete_device(name)
+
+
+@step('am: I click "Delete" button for confirmation')
+def am_click_delete_button(context):
+    """
+    :type context: behave.runner.Context
+    """
+    AmDevicesSettingsPage(context).click_delete_button_in_del_form()
+
+
+@step('am: I get a notification "{text}"')
+def am_get_notification(context, text: str):
+    """
+    :type context: behave.runner.Context
+    """
+    AmDevicesSettingsPage(context).get_notification(text)

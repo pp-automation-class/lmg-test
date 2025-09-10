@@ -15,8 +15,17 @@ Feature: am: Devices Page tests
     And   am: I click on dropdown "Device type" and select "Airguard other"
     When  am: I fill in device name "Test Device #1"
     And   am: I click "Add new device" button
-    Then  am: I should see the new device "Test Device #1" in the devices list
+    Then  am: I get a notification "New device has been added"
+    And   am: I should see the device "Test Device #1" in the devices list
 
+ Scenario: am: Device Settings - Edit Device
+    Given am: I click on button "Edit" for device "Test Device #1"
+    When  am: I fill in device name "Test Device #2"
+    And   am: I click "Update" button
+    Then  am: I get a notification "Test Device #2 succesfully updated"
+    Then  am: I should see the device "Test Device #2" in the devices list
 
-
-
+ Scenario: am: Device Settings - Delete Device
+    Given am: I click on button "Delete" for device "Test Device #2"
+    When  am: I click "Delete" button for confirmation
+    Then  am: I get a notification "Device deleted"
