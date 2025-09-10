@@ -2,7 +2,6 @@ from behave import step
 from pages.kd_login_page import KdLoginPage
 from pages.kd_restore_password_page import KdRestorePasswordPage
 from pages.kd_create_account_page import KdCreateAccountPage
-from pages.kd_base_page import KdBasePage
 
 @step('kd I am on the {env} environment login page')
 def kd_navigate_to_login_page(context, env):
@@ -84,23 +83,3 @@ def kd_click_create_account_link(context):
     login_page = KdLoginPage(context.page)
     login_page.kd_click_create_account()
 
-@step('I click on "{xpath}"')
-def kd_click_on_xpath(context, xpath):
-    page = KdBasePage(context.page)
-    page.kd_click_element(xpath)
-
-@step('I verify element "{xpath}" contains text "{text}"')
-def kd_verify_element_contains_text(context, xpath, text):
-    page = KdBasePage(context.page)
-    actual = page.kd_get_element_text(xpath)
-    assert actual and text in actual, f'Element {xpath} does not contain text "{text}". Actual: "{actual}"'
-
-@step('I fill "{value}" in element "{xpath}"')
-def kd_fill_input_xpath(context, value, xpath):
-    page = KdBasePage(context.page)
-    page.kd_fill_input(xpath, value)
-
-@step('I verify element "{xpath}" exists')
-def kd_verify_element_exists_xpath(context, xpath):
-    page = KdBasePage(context.page)
-    assert page.kd_verify_element_exists(xpath, wait=True), f'Element {xpath} does not exist or is not visible.'

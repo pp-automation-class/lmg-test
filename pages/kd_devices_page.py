@@ -2,8 +2,8 @@
 from pages.kd_base_page import KdBasePage
 
 
-class KDDevicesPage(KdBasePage):
-    """Represents the restore password page with its elements and actions"""
+class KdDevicesPage(KdBasePage):
+    """Represents the devices page with its elements and actions"""
 
     def __init__(self, page):
         """Initialize with Playwright page object"""
