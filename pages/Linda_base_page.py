@@ -37,7 +37,7 @@ class LindaBasePage:
         self.page.locator(selector).wait_for()
 
 
-class LoginPage(BasePage):
+class LindaLoginPage(LindaBasePage):
     """Login page"""
 
     def __init__(self, page: Page):
