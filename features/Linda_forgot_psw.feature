@@ -1,49 +1,101 @@
-@auth @forgot_password
-Feature: Password recovery (Forgot password)
-  As a user who forgot the password
-  I want to request a reset link
-  So that I can restore access to my account
+Feature: Link My Gear Login Functionality
+  As a Link My Gear user
+  I want to be able to log into my account
+  So that I can access my gear management features
 
   Background:
-    Given I open the Login page
-    When I click the "Forgot password?" link
-    Then I should be on the "Restore Password" page
-    And I should see the "Your Email" field and the "Send" button
+    Given I am on the Link My Gear login page
+    And the login form is displayed
 
-  @smoke
-  Scenario: Registered user requests a reset link
-    Given I am on the "Restore Password" page
-    When I fill "Your Email" with "alena9tester@gmail.com"
-    And I click the "Send" button
-    Then a success message is shown containing "email" and "reset"
-    And the "Back to Login page" link is visible
+  Scenario: Successful login with valid credentials
+    When I enter email "alena9tester@gmail.com"
+    And I enter password "Hello"
+    And I click the login button
+    Then I should be redirected to the dashboard
 
-  @negative
-  Scenario Outline: Invalid email format is rejected
-    Given I am on the "Restore Password" page
-    When I fill "Your Email" with "<invalid_email>"
-    And I click the "Send" button
-    Then a validation error is shown for the "Your Email" field
-    And the "Send" button remains enabled
+  Scenario: Login with invalid email format
+    When I enter email "invalid-email"
+    And I enter password "password123"
+    And I click the login button
+    Then I should see an error message
+    And I should remain on the login page
+
+  Scenario: Login with empty credentials
+    When I click the login button
+    Then I should see an error message
+    And I should remain on the login page
+
+  Scenario: Login with empty email
+    When I enter password "password123"
+    And I click the login button
+    Then I should see an error message
+    And I should remain on the login page
+
+  Scenario: Login with empty password
+    When I enter email "alena9tester@gmail.com"
+    And I click the login button
+    Then I should see an error message
+    And I should remain on the login page
+
+  Scenario: Login with incorrect credentials
+    When I enter email "alena9tester@gmail.com"
+    And I enter password "wrongPassword"
+    And I click the login button
+    Then I should see an error message
+    And I should remain on the login page
+
+  Scenario: Clear form fields
+    When I enter email "test@example.com"
+    And I enter password "testpassword"
+    And I clear the email field
+    And I clear the password field
+    Then the email field should be empty
+    And the password field should be empty
+
+  Scenario: Verify form elements are present
+    Then I should see the login page title "Login to Your Account"
+    And I should see the "Forgot password" link
+    And I should see the "Create an account" link
+    And the login button should be enabled
+
+  Scenario: Use forgot password functionality
+    When I click the "Forgot password" link
+    Then I should be redirected to the password reset page
+
+  Scenario: Use create account functionality
+    When I click the "Create an account" link
+    Then I should be redirected to the registration page
+
+  Scenario Outline: Login with multiple invalid credentials
+    When I enter email "<email>"
+    And I enter password "<password>"
+    And I click the login button
+    Then I should see an error message
+    And I should remain on the login page
 
     Examples:
-      | invalid_email     |
-      | test              |
-      | user@             |
-      | @domain.com       |
-      | user@domain       |
-      | user@@domain.com  |
+      | email                    | password        |
+      | invalid.email           | password123     |
+      | test@                   | password123     |
+      | @example.com            | password123     |
+      | test@example            | password123     |
+      | alena9tester@gmail.com  | 123             |
+      | alena9tester@gmail.com  | wrongpassword   |
 
-  @negative
-  Scenario: Empty email cannot be submitted
-    Given I am on the "Restore Password" page
-    When I leave "Your Email" empty
-    And I click the "Send" button
-    Then a validation error is shown for the "Your Email" field
+  Scenario: Login with credentials from data table
+    When I enter the following login credentials:
+      | email                    | password      |
+      | alena9tester@gmail.com   | validPassword |
+    And I click the login button
+    Then I should be redirected to the dashboard
 
-  @navigation
-  Scenario: Go back to Login from Restore Password
-    Given I am on the "Restore Password" page
-    When I click the "Back to Login page" link
-    Then I should be on the Login page
-    And I should see the heading "Login to Your Account"
+  Scenario: Verify multiple potential error messages
+    When I enter email "invalid"
+    And I enter password "wrong"
+    And I click the login button
+    Then I should see the following error messages:
+      | error_message                    |
+      | Invalid email format             |
+      | Invalid credentials              |
+      | Login failed                     |
+      | Please check your email          |
