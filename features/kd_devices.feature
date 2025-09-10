@@ -1,12 +1,10 @@
 Feature: LinkMyGear Add New Device
 
   Background:
-    Given I navigate to "https://dev.linkmygear.com"
-    And I verify element "//h5" contains text "Account"
-    When I fill "katedtest@gmail.com" in element "//input[@name='username']"
-    And I fill "1234567890" in element "//input[@name='password']"
-    And I click on "//button[text()=' Login ']"
-    Then I verify element "//h3[contains(text(), 'My devices')]" exists
+    Given kd I am on the dev environment login page
+    When kd I enter "katedtest@gmail.com" in the email field
+    And kd I enter "1234567890" in the password field
+    Then kd I click the "Login" button
 
   Scenario: Add new device
     When I click on "//a[@class='section-title__icon']"
