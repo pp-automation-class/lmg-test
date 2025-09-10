@@ -10,7 +10,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class LoginPage(BasePage):
+class LindaLoginPage(BasePage):
     """
     Page Object Model for Link My Gear login page.
     """
