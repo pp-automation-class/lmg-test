@@ -23,23 +23,36 @@ class AddDeviceModal(BasePage):
         return f"//li[@role='option']/span[text()='{option}']"
 
     def select_device_type(self, device_type: str):
+        self.logger.info(f"Selecting device type: {device_type}")
         # Click on the dropdown
         self.click_element(self.device_type_dropdown)
         # Select the option
         self.click_element(self.get_device_type_option_locator(device_type))
+        self.logger.debug(f"Successfully selected device type: {device_type}")
 
     def enter_device_name(self, name: str):
+        self.logger.info(f"Entering device name: {name}")
         self.fill_input(self.device_name_input, name)
+        self.logger.debug(f"Successfully entered device name: {name}")
         
     def select_imei(self, imei: str):
+        self.logger.info(f"Selecting IMEI: {imei}")
         self.imei_dropdown.click()
         self.page.get_by_text(imei).click()
+        self.logger.debug(f"Successfully selected IMEI: {imei}")
         
     def click_add_device(self):
+        self.logger.info("Clicking add device button in modal")
         self.click_element(self.add_device_button)
+        self.logger.debug("Successfully clicked add device button in modal")
         
     def close_modal(self):
+        self.logger.info("Closing add device modal")
         self.close_button.click()
+        self.logger.debug("Successfully closed add device modal")
         
     def is_modal_visible(self):
-        return self.modal.is_visible()
+        self.logger.debug("Checking if add device modal is visible")
+        is_visible = self.modal.is_visible()
+        self.logger.debug(f"Add device modal visibility: {is_visible}")
+        return is_visible
