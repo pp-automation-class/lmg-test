@@ -1,0 +1,58 @@
+name: Daily Devices Tests
+
+on:
+  schedule:
+    # Run daily at 3pm UTC (15:00)
+    - cron: '0 15 * * *'
+  workflow_dispatch: # Allow manual trigger for testing
+
+jobs:
+  run-devices-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: latest
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        
+    - name: Cache Poetry dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+        
+    - name: Install dependencies
+      run: poetry install --no-root
+      
+    - name: Install Playwright browsers
+      run: poetry run playwright install
+      
+    - name: Run devices feature tests
+      run: poetry run behave features/devices.feature
+      
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: devices-test-results-${{ github.run_number }}
+        path: |
+          reports/
+          *.log
+        retention-days: 30
+        
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "Devices tests failed on scheduled run"
+        echo "Check the workflow logs for details"
