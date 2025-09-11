@@ -25,4 +25,4 @@ class DeviceSettings(BasePage):
         return self.device_table.locator("tbody tr").count()
         
     def is_device_present(self, device_name: str):
-        return self.page.locator(f"tr:has-text('{device_name}')").is_visible()
+        return self.page.locator(f"//div/span[text()='{device_name}']")
