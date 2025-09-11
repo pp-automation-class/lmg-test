@@ -1,3 +1,6 @@
+import datetime
+import logging
+import os
 import random
 import string
 
@@ -34,3 +37,17 @@ def am_get_enviroment(env: str, item: str) -> str:
     if not item:
         raise ValueError(f"Unknown item: {item}. Available: url, email, password")
     return item
+
+def log_files_path(name: str) -> str:
+    log_dir = os.path.join("..", "..", "temp")
+    os.makedirs(log_dir, exist_ok=True)
+    return os.path.join(log_dir, name)
+
+
+def screenshot(page, name: str):
+    screenshot_path = log_files_path(
+        f"{name}{datetime.datetime.now().strftime('%Y-%m-%d_%H%M%S%f')}.png"
+    )
+    page.screenshot(path=screenshot_path, full_page=True)
+    logging.info(f"Screenshot saved to '{screenshot_path}'")
+

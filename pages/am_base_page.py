@@ -1,3 +1,6 @@
+import time
+
+
 class AmBasePage:
     """
     Base page object that wraps a browser automation `page` instance
@@ -93,7 +96,10 @@ class AmBasePage:
         """
         if not selector:
             selector = self.page_title
-        self.page.wait_for_selector(selector)
+        try:
+            self.page.wait_for_selector(selector, timeout=3000)
+        except Exception as e:
+            assert False, f"Text not found! {e}"
 
     def check(self, selector: str) -> None:
         """Check the checkbox"""
@@ -129,3 +135,17 @@ class AmBasePage:
         Click the 'Go to Login' link to navigate to the login view.
         """
         self.click_element(self.go_to_login)
+
+    def element_exists(self, xpath: str, timeout: int = 0) -> bool:
+        """Check if an element exists without throwing timeout errors.
+        If timeout > 0, poll until timeout, otherwise check once.
+        """
+        if timeout and timeout > 0:
+            end = time.time() + timeout / 1000
+            while time.time() < end:
+                if self.page.query_selector(xpath) is not None:
+                    return True
+                self.page.wait_for_timeout(100)
+            return False
+        else:
+            return self.page.query_selector(xpath) is not None

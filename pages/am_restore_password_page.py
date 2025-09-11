@@ -3,9 +3,13 @@ from utils.am_utils import am_get_enviroment
 
 FORGOT_PASSWORD_EMAIL_INPUT_SELECTOR = "//input[@class='el-input__inner']"
 FORGOT_PASSWORD_LOGIN_BUTTON_SELECTOR = "//button[text()=' Send ']"
-FORGOT_PASSWORD_SEND_RESULT_MESSAGE = "//p[.='Unable to send email. Contact the site administrator if the problem persists.']"
+FORGOT_PASSWORD_SEND_RESULT_MESSAGE = (
+    "//p[.='Unable to send email. Contact the site administrator if the problem persists.']"
+)
 EMPTY_RESTORE_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter you email address']"
-WRONG_FORMAT_RESTORE_EMAIL_ERROR_MESSAGE = "//div[text()='Please enter a valid email address']"
+WRONG_FORMAT_RESTORE_EMAIL_ERROR_MESSAGE = (
+    "//div[text()='Please enter a valid email address']"
+)
 EMAIL_LABEL_SELECTOR = "//label[text()='Your Email']"
 
 
@@ -32,10 +36,14 @@ class AmRestorePasswordPage(AmBasePage):
         # Button that submits the password restore request
         self.button = FORGOT_PASSWORD_LOGIN_BUTTON_SELECTOR
         self.forgot_password_email_input_selector = FORGOT_PASSWORD_EMAIL_INPUT_SELECTOR
-        self.forgot_password_login_button_selector = FORGOT_PASSWORD_LOGIN_BUTTON_SELECTOR
+        self.forgot_password_login_button_selector = (
+            FORGOT_PASSWORD_LOGIN_BUTTON_SELECTOR
+        )
         self.forgot_password_send_result_message = FORGOT_PASSWORD_SEND_RESULT_MESSAGE
         self.empty_restore_email_error_message = EMPTY_RESTORE_EMAIL_ERROR_MESSAGE
-        self.wrong_format_restore_email_error_message = WRONG_FORMAT_RESTORE_EMAIL_ERROR_MESSAGE
+        self.wrong_format_restore_email_error_message = (
+            WRONG_FORMAT_RESTORE_EMAIL_ERROR_MESSAGE
+        )
 
     def restore_password(self, email):
         """

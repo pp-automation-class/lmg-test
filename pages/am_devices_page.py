@@ -30,11 +30,11 @@ class AmDevicesPage(AmBasePage):
         """
         self.page_title = DEVICES_PAGE_TITLE
         # Links to other pages
+        self.device_settings_link = DEVICE_SETTINGS_LINK
         self.records_link = RECORDS_LINK
         self.logbook_link = LOGBOOK_LINK
         self.profile_link = PROFILE_LINK
         self.subscription_link = SUBSCRIPTION_LINK
-        self.device_settings_link = DEVICE_SETTINGS_LINK
         self.logout_link = LOGOUT_LINK
         # Buttons
         self.notifications_button = NOTIFICATIONS_BUTTON
@@ -44,6 +44,10 @@ class AmDevicesPage(AmBasePage):
     """
     Navigation to other pages
     """
+
+    def click_device_settings(self):
+        """Open the devices settings page."""
+        self.click_element(self.device_settings_link)
 
     def click_records(self):
         """Navigate to the record map page."""
@@ -68,7 +72,6 @@ class AmDevicesPage(AmBasePage):
     """
     Buttons
     """
-
     def click_notifications(self):
         """Click the notification button to open the notifications panel."""
         self.click_element(self.notifications_button)
@@ -91,8 +94,8 @@ class AmDevicesPage(AmBasePage):
         names = self.page.locator(DEVICES_NAMES_LOCATOR)
         buttons = self.page.locator(DEVICES_BUTTONS_LOCATOR)
         # Wait until at least one element is present (optional but recommended)
-        names.first.wait_for()
-        buttons.first.wait_for()
+        #names.first.wait_for(timeout=1000)
+        #buttons.first.wait_for(timeout=1000)
         # Get count and iterate
         count = names.count()
         if count == buttons.count() and count > 0:
