@@ -1,6 +1,7 @@
 from behave import step
 
 from pages.add_device_modal import AddDeviceModal
+from pages.base_page import BasePage
 from pages.devices_page import DevicesPage
 from pages.devices_settings_page import DeviceSettings
 
@@ -42,4 +43,9 @@ def press_add_device_button(context):
 
 @step('Verify device "{device_name}" exists in list of devices')
 def verify_device_exists(context, device_name):
-    assert context.devices_page.is_device_present(device_name)
+    DeviceSettings(context.page).is_device_present(device_name)
+
+
+@step('Go to "{page_name}" page')
+def step_impl(context, page_name):
+    BasePage(context.page).open_menu(page_name)
