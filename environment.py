@@ -5,7 +5,7 @@ def before_all(context):
     # Launch Playwright and create browser instance
     context.playwright = sync_playwright().start()
     context.browser = context.playwright.chromium.launch(
-        headless=False  # Set to True for headless mode
+        headless=True  # Set to True for headless mode
     )
 
 
