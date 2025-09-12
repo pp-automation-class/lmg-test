@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       file_name:
-        description: 'Feature file to run (e.g., login_page.feature)'
-        required: true
+        description: 'Feature file to run (e.g., am_login.feature)'
+        required: false
         default: 'am_login.feature'
         type: string
       tag:
@@ -53,7 +53,11 @@ jobs:
     - name: Run tests with file and tag
       if: ${{ inputs.file_name != '' && inputs.tag != '' }}
       run: poetry run behave features/${{ inputs.file_name }} --tags=${{ inputs.tag }}
-      
+
+    - name: Run tests with all am_* files
+      if: ${{ inputs.file_name == '' && inputs.tag == '' }}
+      run: poetry run behave -i "am_*" features
+
     - name: Upload test results
       uses: actions/upload-artifact@v4
       if: always()
