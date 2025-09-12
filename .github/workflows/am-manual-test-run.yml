@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       file_name:
-        description: 'Feature file to run (e.g., am_login.feature)'
+        description: 'Feature file to run (e.g., am_devices_page.feature)'
         required: false
-        default: 'am_login.feature'
+        default: ''
         type: string
       tag:
-        description: 'Tag to filter tests (e.g., @am-positive, leave empty to run without tag filter)'
+        description: 'Tag to filter tests (e.g., @am-regression, leave empty to run without tag filter)'
         required: false
-        default: '@am-positive'
+        default: ''
         type: string
 
 jobs:
