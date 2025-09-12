@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       file_name:
-        description: 'Feature file to run (e.g., login_page.feature)'
+        description: 'Feature file to run (e.g., am_login.feature)'
         required: true
         default: 'am_login.feature'
         type: string
