@@ -39,7 +39,7 @@ jobs:
       run: poetry run playwright install
       
     - name: Run devices feature tests
-      run: poetry run behave features/am_devices_page.feature
+      run: poetry run behave -i "am_*" features
       
     - name: Upload test results
       uses: actions/upload-artifact@v4
