@@ -1,6 +1,5 @@
 import time
 
-
 class AmBasePage:
     """
     Base page object that wraps a browser automation `page` instance
@@ -29,6 +28,7 @@ class AmBasePage:
         """
         self.page = context.page
         self.email = ""
+        self.logger = context.logger
         # Commonly reused selectors across pages:
         self.page_title = "h1"  # Page heading (CSS)
         self.email_input = "//input[@type='email']"  # Email input (XPath)

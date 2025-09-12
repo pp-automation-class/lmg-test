@@ -76,6 +76,7 @@ class AmDevicesSettingsPage(AmBasePage):
         self.click_device_button(name, self.delete_button_for_device_with_name)
 
     def get_row_with_device_name(self, name: str):
+        self.logger.debug(f"Getting row with device name:{name}")
         selector = self.table_row_with_device_name.format(name=name)
         locator = self.page.locator(selector)
         self.element_exists(selector, timeout=1000)

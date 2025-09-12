@@ -1,10 +1,7 @@
-import logging
-
 from behave import step
 
 from pages.am_devices_page import AmDevicesPage
 from pages.am_devices_settings_page import AmDevicesSettingsPage
-from utils.am_utils import log_files_path
 
 
 @step("am: I click on the gear icon Devices Settings link")
@@ -12,13 +9,6 @@ def am_click_gear_icon(context):
     """
     :type context: behave.runner.Context
     """
-    logging.basicConfig(
-        filename=log_files_path("devices_page.log"),
-        level=logging.DEBUG,
-        format="%(asctime)s | %(name)s | %(levelname)s | %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
-    logging.info("Starting Devices Settings")
     AmDevicesPage(context).click_device_settings()
 
 
@@ -35,7 +25,7 @@ def am_click_add_new_device(context):
     """
     :type context: behave.runner.Context
     """
-    logging.debug("Clicking on Add new device button")
+    context.logger.debug("Clicking on Add new device button")
     AmDevicesSettingsPage(context).click_add_new_device()
 
 
@@ -55,7 +45,6 @@ def am_list_of_devices(context):
     :type context: behave.runner.Context
     """
     _list = AmDevicesPage(context).get_devices_list()
-    logging.info(f"List:{_list}")
 
 
 @step('am: I click on dropdown "{label}" and select "{item}"')
@@ -75,7 +64,7 @@ def am_fill_device_name(context, device_name: str):
     :type context: behave.runner.Context
     """
     AmDevicesSettingsPage(context).fill_device_name(device_name)
-    logging.info(f"Device name filled in: {device_name}")
+    context.logger.debug(f"Device name filled in: {device_name}")
 
 
 @step('am: I click "Add new device" button')
@@ -83,7 +72,7 @@ def am_click_add_new_device(context):
     """
     :type context: behave.runner.Context
     """
-    logging.info("Add new device button clicked")
+    context.logger.debug("Add new device button clicked")
     AmDevicesSettingsPage(context).click_add_new_device_button_in_add_form()
 
 
@@ -102,7 +91,7 @@ def am_click_edit_device(context, name: str):
     :param name:
     :type context: behave.runner.Context
     """
-    logging.debug(f"Clicking on Edit button for device '{name}'")
+    context.logger.debug(f"Clicking on Edit button for device '{name}'")
     AmDevicesSettingsPage(context).click_edit_device(name)
 
 
@@ -111,7 +100,7 @@ def am_click_update(context):
     """
     :type context: behave.runner.Context
     """
-    logging.info("Add update button clicked")
+    context.logger.debug("Add update button clicked")
     AmDevicesSettingsPage(context).click_update_button_in_add_form()
 
 
