@@ -12,6 +12,7 @@ Contains common methods used across all pages
 # ANK_PASSWORD = "12345"
 
 
+
 class AnkBasePage:
     """Base class with common page actions (synchronous Playwright API)."""
 
@@ -19,6 +20,7 @@ class AnkBasePage:
         """Initialize with the Playwright Page instance"""
         self.page = page
         self.page_title = "//h5"
+
 
     # Navigation
     def ank_navigate(self, url: str):
