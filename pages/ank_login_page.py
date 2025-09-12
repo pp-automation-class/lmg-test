@@ -3,66 +3,74 @@ Login Page Object Model
 Purpose: Minimal, consistent skeleton aligned with BasePage utilities.
 """
 
-from pages.base_page import BasePage
+from pages.ank_base_page import AnkBasePage
+from pages.ank_create_account_page import AnkCreateAccountPage
 
 
-
-class AnKrLoginPage(BasePage):
+class AnkLoginPage(AnkBasePage):
     """Represents the login page with its elements and actions"""
 
     def __init__(self, page):
         """Initialize with the Playwright page object"""
         super().__init__(page) # Call parent class constructor
 
-
     # Define selectors for page elements
-        self.logo_img = "//img[@alt='Logo']"
-        self.email_input = "input[@name='email']"
-        self.password_input = "input[@name='password']"
-        self.login_button = "button[text()=' Login ']"
-        self.error_message = ".error-message"
-        self.forgot_password_link = "a:has-text('Restore Password')"
-        self.create_an_account_link = "a:has-text('Sign Up')"
 
+        self.page_title = "//h5"
+        self.email_input = "//input[@name='username']"
+        self.password_input = "//input[@name='password']"
+        self.login_button = "//button[text()=' Login ']"
+        self.forgot_password_link = "//a[text()='Forgot password?']"
+        self.create_account_link = "//a[text()='Create an account']"
+        self.restore_password_link = "//h5[text()='Restore Password']"
+        self.validation_message = "//p[contains(text(), 'Sorry')]"
+        self.dashboard_page = "//h3[contains(text(), 'My devices')]"
+        self.error_message = "//p[contains(text(), 'Sorry, unrecognized username or password')]"
 
-    # Methods
     # Navigation
-    def navigate_to_login(self, url):
+    def ank_navigate_to_login(self, url):
         """Navigate to the login page"""
         # Optionally, just call parent (or remove this and call base from tests)
-        super().navigate(url)
+        self.ank_navigate(url)
 
     # Field interactions
-    def input_email(self, email):
+    def ank_enter_email(self, email):
         """Type email into the email field"""
-        self.page.fill(self.email_input, email)
+        self.ank_fill_input(self.email_input, email)
 
-    def input_password(self, password):
+    def ank_enter_password(self, password):
         """Type password into the password field"""
-        self.page.fill(self.password_input, password)
+        self.ank_fill_input(self.password_input, password)
 
     # Actions
-    def click_login(self):
+    def ank_click_login(self):
         """Click the login button"""
-        self.page.click(self.login_button)
+        self.ank_click_element(self.login_button)
 
-
-    def login(self, email, password):
+    def ank_login(self, email, password):
         """Complete the login flow with email and password"""
-        self.input_email(email)
-        self.input_password(password)
-        self.click_login()
-
-    # Retrievals
-    def get_error_message(self):
-        """Get text of the error message if displayed"""
-        return self.get_element_text(self.error_message)
+        self.ank_enter_email()
+        self.ank_enter_password()
+        self.ank_click_login()
 
     # Navigation links
-    def click_forgot_password(self):
+    def ank_click_forgot_password(self):
         """Click the 'Forgot Password' link"""
-        self.click_element(self.forgot_password_link)
+        self.ank_click_element(self.forgot_password_link)
 
-    def click_create_an_account(self):
+    def ank_click_create_account(self) -> AnkCreateAccountPage:
         """Click create an account link"""
-        self.click_element(self.create_an_account_link)
+        self.ank_click_element(self.create_account_link)
+        return AnkCreateAccountPage(self.page)
+
+    # Helpers
+    def ank_get_validation_text(self):
+        return self.ank_get_element_text(self.validation_message)
+
+    def ank_verify_title_contains(self, expected_text):
+        return self.ank_verify_page_title(expected_text)
+
+    def ank_verify_dashboard_page(self, xpath: str = None):
+        """Check if an element exists on the page by xpath. If not provided, use default dashboard xpath."""
+        xpath = xpath or self.dashboard_page
+        return self.ank_element_exists(xpath, wait=True)
