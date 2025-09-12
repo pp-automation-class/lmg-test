@@ -9,7 +9,7 @@ on:
         default: 'am_login.feature'
         type: string
       tag:
-        description: 'Tag to filter tests (e.g., @ab-regression, leave empty to run without tag filter)'
+        description: 'Tag to filter tests (e.g., @am-positive, leave empty to run without tag filter)'
         required: false
         default: '@am-positive'
         type: string
