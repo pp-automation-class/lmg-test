@@ -6,7 +6,7 @@ Feature: TaPi Login Page
   Background:
     Given I am on the dev environment login page
 
- @TaPi-positive @TaPi-login
+ @positive @login
   Scenario: Successful login with valid credentials
     When I enter "testanya108+amn@gmail.com" in the email field
     And I enter "12345" in the password field
