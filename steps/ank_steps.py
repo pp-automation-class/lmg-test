@@ -1,14 +1,18 @@
 from behave import step
+import os
 from pages.ank_login_page import AnkLoginPage
 from pages.ank_create_account_page import AnkCreateAccountPage
 from pages.ank_restore_password_page import AnkRestorePasswordPage
 
+
 @step('ank I am on the {env} environment login page')
 def ank_navigate_to_login_page(context, env):
     """Open a specific environment login page for ANK brand."""
+    dev_auth = os.getenv("LMG_DEV_BASIC_AUTH")
+    dev_url = f"https://{dev_auth}@dev.linkmygear.com/login" if dev_auth else "https://dev.linkmygear.com/login"
     environments = {
         'prod': 'https://app.linkmygear.com/',
-        'dev': 'https://test:FjeKB9ySMzwvDUs2XACpfu@dev.linkmygear.com/login',
+        'dev': dev_url,
         'dev-v2': 'https://dev-v2.linkmygear.com/#/login'
     }
 
@@ -55,7 +59,7 @@ def ank_click_create_account_link(context):
 @step("ank I should be redirected to registration page")
 def ank_registration_page(context):
     registration_page = AnkCreateAccountPage(context.page)
-    assert  registration_page.ank_verify_title_contains("Create an Account")
+    assert registration_page.ank_verify_title_contains("Create an Account")
 
 
 @step('ank I should see "Create an Account" heading')
@@ -66,7 +70,7 @@ def ank_create_account_heading(context):
 
 @step('ank I should see error message "Sorry, unrecognized username or password"')
 def ank_error_loging_message(context):
-    loging_page =  AnkLoginPage(context.page)
+    loging_page = AnkLoginPage(context.page)
     assert loging_page.ank_verify_element_exists(loging_page.error_message, wait=True)
 
 
@@ -98,5 +102,3 @@ def ank_see_error_message_email(context):
 def ank_see_error_message_password(context):
     login_page = AnkLoginPage(context.page)
     assert login_page.ank_verify_title_contains("Password is required")
-
-

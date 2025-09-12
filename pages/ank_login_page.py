@@ -12,7 +12,7 @@ class AnkLoginPage(AnkBasePage):
 
     def __init__(self, page):
         """Initialize with the Playwright page object"""
-        super().__init__(page) # Call parent class constructor
+        super().__init__(page)  # Call parent class constructor
 
     # Define selectors for page elements
 

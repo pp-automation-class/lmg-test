@@ -8,8 +8,9 @@ Contains common methods used across all pages
 # CREATE_ACCOUNT_URL = "https://dev.linkmygear.com/register"
 # RESTORE_PASSWORD_URL = "https://dev.linkmygear.com/restorePassword"
 # VERIFY_PATH = "//h5[.='Login to Your Account']"
-# ANKR_EMAIL = "akr.autotest@gmail.com"
-# ANKR_PASSWORD = "12345"
+# ANK_EMAIL = "akr.autotest@gmail.com"
+# ANK_PASSWORD = "12345"
+
 
 class AnkBasePage:
     """Base class with common page actions (synchronous Playwright API)."""

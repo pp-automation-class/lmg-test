@@ -41,5 +41,3 @@ Feature:ANK- Login Page
         And ank I should see "Restore Password" heading
         And ank I enter "akr.autotest@gmail.com" in the email field
         And ank I click the "Send" button
-
-

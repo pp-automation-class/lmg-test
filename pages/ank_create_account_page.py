@@ -8,7 +8,6 @@ class AnkCreateAccountPage(AnkBasePage):
         """Initialize with the Playwright page object"""
         super().__init__(page)
 
-
         self.page_title = "//h5"
         self.email_input = "//input[@name='username']"
         self.password_input = "//input[@name='password']"
