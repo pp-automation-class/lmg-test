@@ -40,14 +40,14 @@ class AnkBasePage:
 
     def ank_get_element_text(self, selector):
         """Get text content of an element, if visible"""
-        if self.is_element_visible(selector):
+        if self.ank_is_element_visible(selector):
             return self.page.text_content(selector)
         return None
 
     # Page-level convenience
     def ank_verify_page_title(self, expected_text):
         """Verify that the page title element contains expected_text (case-insensitive)."""
-        actual_title = self.get_element_text(self.page_title)
+        actual_title = self.ank_get_element_text(self.page_title)
         if actual_title:
             return expected_text.lower() in actual_title.lower()
         return False
