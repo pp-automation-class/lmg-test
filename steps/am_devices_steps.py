@@ -36,7 +36,9 @@ def am_test_assertion(context):
     """
     # This step is intended to demonstrate a failing hard assertion.
     # Using AssertionError ensures Behave/PyCharm reports a failure and stops (with --stop).
-    assert False, "Intentional AssertionError: Test assertion should fail and stop the run"
+    assert (
+        False
+    ), "Intentional AssertionError: Test assertion should fail and stop the run"
 
 
 @step("am: I Check List of devices")
@@ -45,6 +47,7 @@ def am_list_of_devices(context):
     :type context: behave.runner.Context
     """
     _list = AmDevicesPage(context).get_devices_list()
+    context.logger.debug(f"Device list: {_list}")
 
 
 @step('am: I click on dropdown "{label}" and select "{item}"')
@@ -68,7 +71,7 @@ def am_fill_device_name(context, device_name: str):
 
 
 @step('am: I click "Add new device" button')
-def am_click_add_new_device(context):
+def am_click_add_new_device_button(context):
     """
     :type context: behave.runner.Context
     """

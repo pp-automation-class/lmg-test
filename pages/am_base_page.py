@@ -1,5 +1,6 @@
 import time
 
+
 class AmBasePage:
     """
     Base page object that wraps a browser automation `page` instance
