@@ -38,7 +38,7 @@ jobs:
     - name: Install Playwright browsers
       run: poetry run playwright install
       
-    - name: Run devices feature tests
+    - name: Run all features tests
       run: poetry run behave -i "am_*" features
       
     - name: Upload test results
