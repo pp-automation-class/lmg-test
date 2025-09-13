@@ -1,4 +1,4 @@
-name: Manual Test Execution
+name: AM Manual Test Execution
 
 on:
   workflow_dispatch:
