@@ -103,6 +103,6 @@ def ank_see_error_message_password(context):
     assert login_page.ank_verify_title_contains("Password is required")
 
 
-@step("ank Wait for {sec} seconds")
+@step("ank I wait for {sec} seconds")
 def ank_wait_for_sec(context, sec):
     context.page.ank_wait_for_timeout(int(sec) * 1000)

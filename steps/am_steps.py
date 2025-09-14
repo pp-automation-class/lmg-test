@@ -7,6 +7,7 @@ from pages.am_login_page import AmLoginPage
 from pages.am_devices_page import AmDevicesPage
 from pages.am_restore_password_page import AmRestorePasswordPage
 from utils.am_utils import random_email
+from utils.logger import setup_logger
 
 
 @step("am: I navigate to the {env} environment login page")
@@ -18,6 +19,7 @@ def am_navigate_to_login_page(context, env):
     # Environment type saved in context
     # Map environment names to their respective URLs
     context.env = env
+    context.logger = setup_logger("test_framework", "DEBUG")
     AmLoginPage(context).navigate_to_login()
 
 
@@ -220,7 +222,9 @@ def am_wait_for_create_an_account_form(context):
 @step("am: I fill a random email in email input field")
 def am_enter_random_email(context):
     create_page = AmCreateAccountPage(context)
-    create_page.enter_email(random_email())
+    email = random_email()
+    create_page.enter_email(email)
+    context.logger.debug(f"Account is creating for: {email}")
 
 
 @step("am: I check the terms and conditions checkbox")

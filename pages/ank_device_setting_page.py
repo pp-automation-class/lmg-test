@@ -18,8 +18,8 @@ class AnkDeviceSetting(AnkBasePage):
         self.row_with_device_name = (
             "//div[@class='el-table__body-wrapper']//tr[.//td[1 and .='{name}']]"
         )
-
-    # Actions
+        self.delete_button_in_del_form = "//button[.='Delete']"
+        # Actions
     def ank_click_add_device(self):
         self.ank_add_device_button.click()
 
@@ -37,4 +37,15 @@ class AnkDeviceSetting(AnkBasePage):
         return count
 
     def ank_is_device_present(self, device_name: str) -> bool:
-        return self.page.locator(f"tr:has-text('{device_name}')").is_visible()
+        return self.page.locator(f"//div/span[text()='{device_name}']").is_visible()
+
+    def ank_get_notification(self, text: str):
+        selector = f"//p[.='{text}']"
+        self.ank_verify_page_title(selector)
+
+    def ank_click_delete_button_in_del_form(self):
+        self.ank_click_element(self.delete_button_in_del_form)
+
+
+
+

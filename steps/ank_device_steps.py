@@ -2,14 +2,14 @@
 from behave import step
 
 from pages.ank_devices_page import AnkDevicesPage
-from pages.ank_device_setting import AnkDeviceSetting
+from pages.ank_device_setting_page import AnkDeviceSetting
 from pages.ank_add_device_model import AnkAddDeviceModal
 from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
 
-@step('ank Verify I on "{page_name}" page')
+@step('ank I verify on "{page_name}" page')
 def ank_verify_on_page(context, page_name):
     logger.info(f"ANK: Verifying on '{page_name}' page")
     if page_name == "My Devices":
@@ -17,10 +17,10 @@ def ank_verify_on_page(context, page_name):
         result = my_devices.ank_verify_page_title(page_name)
         logger.info(f"ANK: Page verification result: {result}")
         assert result
-     logger.debug(f"ANK: Successfully verified on '{page_name}' page")
+    logger.debug(f"ANK: Successfully verified on '{page_name}' page")
 
 
-@step('ank I open Devices Settings')
+@step('ank I open devices Settings')
 def ank_open_devices_settings(context):
     logger.info("ANK: Opening Devices Settings")
     AnkDevicesPage(context.page).ank_open_device_settings()
@@ -28,13 +28,11 @@ def ank_open_devices_settings(context):
     logger.debug("ANK: Successfully opened Devices Settings")
 
 
-@step('ank I press Add new device button')
-def ank_press_add_new_device(context):
-    logger.info("ANK: Pressing Add new device button")
-    # Ensure we have the settings page object
-    settings = getattr(context, 'ank_devices_settings', AnkDeviceSetting(context.page))
-    settings.ank_click_add_device()
-    logger.debug("ANK: Successfully pressed Add new device button")
+@step('ank I click "Add new device" button')
+def ank_click_add_new_device(context):
+    logger.info("ANK: Clicking Add new device button")
+    context.ank_devices_settings.ank_click_add_device()
+    logger.debug("ANK: Successfully clicked Add new device button")
 
 
 @step('ank I choose "{device_type}" device type')
@@ -53,13 +51,6 @@ def ank_fill_device_name(context, device_name):
     logger.debug(f"ANK: Successfully filled device name '{device_name}'")
 
 
-@step('ank I press add new device button')
-def ank_press_add_device_button(context):
-    logger.info("ANK: Pressing add new device button in modal")
-    AnkAddDeviceModal(context.page).ank_click_add_device()
-    logger.debug("ANK: Successfully pressed add new device button in modal")
-
-
 @step('ank I verify device "{device_name}" exists in list of devices')
 def ank_verify_device_exists(context, device_name):
     logger.info(f"ANK: Verifying device '{device_name}' exists in list")
@@ -68,3 +59,40 @@ def ank_verify_device_exists(context, device_name):
     logger.info(f"ANK: Device verification result: {result}")
     assert result, f"Device '{device_name}' not found in the list"
     logger.debug(f"ANK: Successfully verified device '{device_name}' exists")
+
+
+@step('ank I click the "Edit" button for device "{name}"')
+def ank_click_edit_device(context, name: str):
+    context.logger.debug("ANK: Clicking Edit button for device '{name}'")
+    AnkDeviceSetting(context.page).ank_click_edit_device(name)
+
+
+@step('ank I fill in device name "{name}"')
+def ank_fill_device_name(context, name: str):
+    AnkAddDeviceModal(context.page).ank_enter_device_name(name)
+    context.logger.debug(f"ANK: Filling in device name '{name}'")
+
+
+@step('ank I click "Update" button')
+def ank_click_update(context):
+    context.logger.debug("ANK: Clicking Update button")
+    AnkAddDeviceModal(context.page).ank_click_add_device()
+
+
+@step('ank I get a notification "{text}"')
+def ank_get_notification(context, text: str):
+    context.logger.debug(f"ANK: Getting notification with text '{text}'")
+    AnkDevicesPage(context.page).ank_get_notification(text)
+
+
+@step('ank I click on "Delete" button for device "{name}"')
+def ank_click_delete_device(context, name: str):
+    context.logger.debug(f"ANK: Clicking on Delete button for device '{name}'")
+    AnkDeviceSetting(context.page).ank_click_delete_device(name)
+
+
+@step('ank I click "Delete" button for confirmation')
+def ank_click_delete_button(context):
+    context.logger.debug("ANK: Clicking Delete button in confirmation dialog")
+    AnkDeviceSetting(context.page).ank_click_delete_button_in_del_form()
+
