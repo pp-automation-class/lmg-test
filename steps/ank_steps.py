@@ -7,12 +7,10 @@ from pages.ank_restore_password_page import AnkRestorePasswordPage
 
 @step('ank I am on the {env} environment login page')
 def ank_navigate_to_login_page(context, env):
-    """Open a specific environment login page for ANK brand."""
-    dev_auth = os.getenv("LMG_DEV_BASIC_AUTH")
-    dev_url = f"https://{dev_auth}@dev.linkmygear.com/login" if dev_auth else "https://dev.linkmygear.com/login"
+    # Map environment names to their respective URLs
     environments = {
         'prod': 'https://app.linkmygear.com/',
-        'dev': dev_url,
+        'dev': 'https://test:FjeKB9ySMzwvDUs2XACpfu@dev.linkmygear.com/login',
         'dev-v2': 'https://dev-v2.linkmygear.com/#/login'
     }
 
@@ -23,6 +21,7 @@ def ank_navigate_to_login_page(context, env):
 
     # Navigate to the appropriate login page
     context.page.goto(url)
+    # Wait for page to load completely
     context.page.wait_for_load_state('networkidle')
 
 
@@ -102,3 +101,56 @@ def ank_see_error_message_email(context):
 def ank_see_error_message_password(context):
     login_page = AnkLoginPage(context.page)
     assert login_page.ank_verify_title_contains("Password is required")
+
+
+@step("ank Wait for {sec} seconds")
+def ank_wait_for_sec(context, sec):
+    context.page.ank_wait_for_timeout(int(sec) * 1000)
+
+
+from pages.ank_devices_page import AnkDevicesPage
+from pages.ank_device_setting import AnkDeviceSetting
+from pages.add_device_modal import AddDeviceModal
+
+
+@step('ank Verify I on "{page_name}" page')
+def ank_verify_on_page(context, page_name):
+    devices_page = AnkDevicesPage(context.page)
+    result = devices_page.ank_verify_page_title(page_name)
+    assert result, f"Expected to be on '{page_name}' page, but title did not match"
+
+
+@step('ank I open Devices Settings')
+def ank_open_devices_settings(context):
+    AnkDevicesPage(context.page).ank_open_device_settings()
+    context.ank_devices_settings = AnkDeviceSetting(context.page)
+
+
+@step('ank I press Add new device button')
+def ank_press_add_new_device(context):
+    # Ensure we have the settings page object
+    settings = getattr(context, 'ank_devices_settings', AnkDeviceSetting(context.page))
+    settings.ank_click_add_device()
+
+
+@step('ank I choose "{device_type}" device type')
+def ank_choose_device_type(context, device_type):
+    device_popup = AddDeviceModal(context.page)
+    device_popup.select_device_type(device_type)
+
+
+@step('ank I fill out name "{device_name}" of device')
+def ank_fill_device_name(context, device_name):
+    device_popup = AddDeviceModal(context.page)
+    device_popup.enter_device_name(device_name)
+
+
+@step('ank I press add new device button')
+def ank_press_add_device_button(context):
+    AddDeviceModal(context.page).click_add_device()
+
+
+@step('ank I verify device "{device_name}" exists in list of devices')
+def ank_verify_device_exists(context, device_name):
+    settings = AnkDeviceSetting(context.page)
+    assert settings.ank_is_device_present(device_name), f"Device '{device_name}' not found in the list" 

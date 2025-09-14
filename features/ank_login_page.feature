@@ -18,7 +18,7 @@ Feature:ANK- Login Page
         When ank I enter "akr.autotest@gmail.com" in the email field
         And ank I enter "12345" in the password field
         And ank I click the "Login " button
-#        And Wait for 5 seconds
+#        And ank Wait for 5 seconds
         Then ank I should be redirected to the dashboard page
 
     @negative @login
