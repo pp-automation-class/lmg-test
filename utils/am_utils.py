@@ -22,9 +22,9 @@ def am_get_enviroment(env: str, item: str) -> str:
             "password": "r+WLLX9qwx^:>:3",
         },
         "dev-v2": {
-            "url": "https://dev-v2.linkmygear.com/#/login}",
-            "email": "7nxjno9lr@mozmail.com",
-            "password": "r+WLLX9qwx^:>:3",
+            "url": "https://test:FjeKB9ySMzwvDUs2XACpfu@dev.linkmygear.com/login",
+            "email": "pcs.automationclass@gmail.com",
+            "password": "1234567",
         },
     }
 
