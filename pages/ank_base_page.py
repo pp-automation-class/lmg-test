@@ -19,8 +19,13 @@ class AnkBasePage:
     def __init__(self, page):
         """Initialize with the Playwright Page instance"""
         self.page = page
+        # Each child class should define this
         self.page_title = "//h5"
 
+
+    def ank_get_menu_item_locator(self, menu_item: str):
+        """Return the locator for a specific menu item"""
+        return f"//a[text()='{menu_item}']"
 
     # Navigation
     def ank_navigate(self, url: str):
@@ -55,15 +60,20 @@ class AnkBasePage:
             return expected_text.lower() in actual_title.lower()
         return False
 
-    # Helpful waits (optional but commonly needed)
-    def ank_element_exists(self, xpath, wait: bool = False):
-        try:
-            locator = self.page.locator(xpath)
-            if wait:
-                locator.wait_for(state="visible", timeout=5000)
-            return locator.is_visible()
-        except Exception:
-            return False
+    def ank_open_menu(self, menu_item: str):
+        """Open a specific menu item"""
+        self.ank_click_element(self.ank_get_menu_item_locator(menu_item))
 
-    def ank_verify_element_exists(self, xpath, wait: bool = False):
-        return self.ank_element_exists(xpath, wait=wait)
+
+    # # Helpful waits (optional but commonly needed)
+    # def ank_element_exists(self, xpath, wait: bool = False):
+    #     try:
+    #         locator = self.page.locator(xpath)
+    #         if wait:
+    #             locator.wait_for(state="visible", timeout=5000)
+    #         return locator.is_visible()
+    #     except Exception:
+    #         return False
+    #
+    # def ank_verify_element_exists(self, xpath, wait: bool = False):
+    #     return self.ank_element_exists(xpath, wait=wait)
