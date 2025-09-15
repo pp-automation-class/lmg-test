@@ -18,7 +18,7 @@ Feature:ANK- Login Page
         When ank I enter "akr.autotest@gmail.com" in the email field
         And ank I enter "12345" in the password field
         And ank I click the "Login " button
-#        And ank Wait for 5 seconds
+        And ank I wait for <3> seconds
         Then ank I should be redirected to the dashboard page
 
     @negative @login
@@ -27,11 +27,14 @@ Feature:ANK- Login Page
         And ank I enter "12345" in the password field
         And ank I click the "Login " button
         And ank I should see error message "Sorry, unrecognized username or password"
+        And ank I wait for <3> seconds
 
       @negative @login
     Scenario: Failed login with empty credentials
         When ank I click the "Login " button
+        And ank I wait for <3> seconds
         And ank I should see error message "Email is required"
+        And ank I wait for <3> seconds
         And ank I should see error message "Password is required"
 #
     @negative @login
@@ -40,4 +43,4 @@ Feature:ANK- Login Page
         Then ank I should be redirected to password restore page
         And ank I should see "Restore Password" heading
         And ank I enter "akr.autotest@gmail.com" in the email field
-        And ank I click the "Send" button
+        And ank I click the "Send" button"
