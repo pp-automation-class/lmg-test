@@ -1,0 +1,70 @@
+name: AM Manual Test Execution with Allure Report
+
+on:
+  workflow_dispatch:
+    inputs:
+      file_name:
+        description: 'Feature file to run (e.g., am_devices_page.feature)'
+        required: false
+        default: ''
+        type: string
+      tag:
+        description: 'Tag to filter tests (e.g., @am-regression, leave empty to run without tag filter)'
+        required: false
+        default: ''
+        type: string
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: latest
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        
+    - name: Cache Poetry dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+        
+    - name: Install dependencies
+      run: poetry install --no-root
+      
+    - name: Install Playwright browsers
+      run: poetry run playwright install
+      
+    - name: Run tests with file only
+      if: ${{ inputs.file_name != '' && inputs.tag == '' }}
+      run: poetry run behave features/${{ inputs.file_name }} -f allure_behave.formatter:AllureFormatter -o allure-results -f pretty
+      
+    - name: Run tests with file and tag
+      if: ${{ inputs.file_name != '' && inputs.tag != '' }}
+      run: poetry run behave features/${{ inputs.file_name }} --tags=${{ inputs.tag }} -f allure_behave.formatter:AllureFormatter -o allure-results -f pretty
+
+    - name: Run tests with all am_* files
+      if: ${{ inputs.file_name == '' && inputs.tag == '' }}
+      run: poetry run behave -i "am_*" features -f allure_behave.formatter:AllureFormatter -o allure-results -f pretty
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results
+        path: |
+          reports/
+          *.log
+          allure-results
+        retention-days: 30
