@@ -2,6 +2,7 @@ from behave import step
 
 from pages.am_devices_page import AmDevicesPage
 from pages.am_devices_settings_page import AmDevicesSettingsPage
+from pages.am_google_map_page import AmGoogleMapPage
 
 
 @step("am: I click on the gear icon Devices Settings link")
@@ -131,3 +132,61 @@ def am_get_notification(context, text: str):
     :type context: behave.runner.Context
     """
     AmDevicesSettingsPage(context).get_notification(text)
+
+
+@step('am: I click on button "Show on map" for device "{name}"')
+def am_click_edit_device(context, name: str):
+    """
+    :param name:
+    :type context: behave.runner.Context
+    """
+    context.page = AmDevicesPage(context).click_show_on_map(name)
+
+
+@step("am: I should be redirected to the new Google Maps page")
+def am_new_google_map_page_verify(context):
+    """
+    :type context: behave.runner.Context
+    """
+    AmGoogleMapPage(context).verify_page()
+
+
+@step('am: I click button "Directions" on Google Maps page')
+def am_click_button_directions_on_map(context):
+    """
+    :type context: behave.runner.Context
+    """
+    AmGoogleMapPage(context).click_button_directions()
+
+
+@step('am: I click button "Driving" on Google Maps page')
+def am_cclick_button_driving_on_map(context):
+    """
+    :type context: behave.runner.Context
+    """
+    AmGoogleMapPage(context).click_button_driving()
+
+
+@step('am: I input "{address}" in the starting point field')
+def am_input_starting_point(context, address):
+    """
+    :param address:
+    :type context: behave.runner.Context
+    """
+    AmGoogleMapPage(context).input_starting_point(address)
+
+
+@step("am: I close the Google Maps page and return to the devices page")
+def am_close_google_map_page(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.page = AmGoogleMapPage(context).close_page()
+
+
+@step("am: I press Enter key")
+def am_press_enter_key(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.page.keyboard.press("Enter")

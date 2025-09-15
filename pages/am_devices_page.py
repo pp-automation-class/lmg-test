@@ -16,6 +16,7 @@ RESEND_ACTIVATION_BUTTON = "//button[contains(.,'Resend activation link')]"
 DEMO_JUMP_BUTTON = "//button[contains(.,'Demo Jump')]"
 DEVICES_NAMES_LOCATOR = "//div[@class='lmg-device']/div/h4"
 DEVICES_BUTTONS_LOCATOR = "//div[@class='lmg-device']/div/button[.='Upload Logs']"
+ELEMENT_WITH_DEVICE_NAME_SHOW_ON_MAP_BUTTON = "//div[@class='lmg-device is-alert'][.//h4[.='{name}']]//button[contains(.,'Show on map')]"
 
 
 class AmDevicesPage(AmBasePage):
@@ -40,13 +41,14 @@ class AmDevicesPage(AmBasePage):
         self.notifications_button = NOTIFICATIONS_BUTTON
         self.resend_activation_button = RESEND_ACTIVATION_BUTTON
         self.demo_jump_button = DEMO_JUMP_BUTTON
+        self.element_with_device_name_show_on_map_button = ELEMENT_WITH_DEVICE_NAME_SHOW_ON_MAP_BUTTON
 
     """
     Navigation to other pages
     """
 
     def click_device_settings(self):
-        """Open the devices settings page."""
+        """Open the device settings page."""
         self.click_element(self.device_settings_link)
 
     def click_records(self):
@@ -100,3 +102,11 @@ class AmDevicesPage(AmBasePage):
             for i in range(count):
                 dev_list.append([names.nth(i).inner_text(), buttons.nth(i)])
         return dev_list
+
+    def click_show_on_map(self, name):
+        selector = self.element_with_device_name_show_on_map_button.format(name=name)
+        assert self.element_exists(selector, timeout=1000), f"Device '{name}' not found in the list of devices."
+        # Click opens a new page
+        with self.page.context.expect_page() as new_page_info:
+            self.click_element(selector)
+        return new_page_info.value
