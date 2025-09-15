@@ -61,6 +61,13 @@ jobs:
       if: ${{ inputs.file_name == '' && inputs.tag == '' }}
       run: poetry run behave -i "am_*" features -f allure_behave.formatter:AllureFormatter -o allure-results -f pretty
 
+    - name: Generate Allure report
+      uses: simple-elf/allure-report-action@v1.7
+      if: always()
+      with:
+        results-dir: allure-results
+        report-dir: allure-report
+
     - name: Upload test results
       uses: actions/upload-artifact@v4
       if: always()
@@ -70,4 +77,5 @@ jobs:
           reports/
           *.log
           allure-results
+          allure-report
         retention-days: 30
