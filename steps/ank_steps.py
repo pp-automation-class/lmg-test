@@ -106,3 +106,10 @@ def ank_see_error_message_password(context):
 @step("ank Wait for {sec} seconds")
 def ank_wait_for_sec(context, sec):
     context.page.ank_wait_for_timeout(int(sec) * 1000)
+
+
+@step('ank I click the {button_text} button"')
+def ank_click_send_button(context, button_text):
+    restore_page = AnkRestorePasswordPage(context.page)
+    restore_page.ank_click_send()
+
