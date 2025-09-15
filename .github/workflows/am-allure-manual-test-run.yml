@@ -65,8 +65,8 @@ jobs:
       uses: simple-elf/allure-report-action@v1.7
       if: always()
       with:
-        results-dir: allure-results
-        report-dir: allure-report
+        allure_results: allure-results
+        allure_report: allure-report
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
