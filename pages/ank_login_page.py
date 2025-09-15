@@ -74,3 +74,10 @@ class AnkLoginPage(AnkBasePage):
         """Check if an element exists on the page by xpath. If not provided, use default dashboard xpath."""
         xpath = xpath or self.dashboard_page
         return self.ank_element_exists(xpath, wait=True)
+
+    def ank_verify_element_exists(self, error_message, wait):
+        return self.ank_element_exists(error_message, wait)
+        pass
+
+    def ank_element_exists(self, xpath, wait):
+        pass

@@ -1,5 +1,6 @@
 from behave import step
 
+from pages.devices_page import DevicesPage
 from pages.login_page import LoginPage
 
 
@@ -43,3 +44,30 @@ def wait_for_sec(context, sec):
 def click_login_button(context):
     login_page = LoginPage(context.page)
     login_page.click_login()
+
+
+@step('I click show on map button for device with name "{device_name}"')
+def click_on_show_on_map_button(context, device_name):
+    device = DevicesPage(context.page).get_show_on_map_locator(device_name)
+    
+    # Wait for the new page to be created after clicking
+    with context.browser_context.expect_page() as new_page_info:
+        context.page.click(device)
+    
+    # Get the new page object
+    new_page = new_page_info.value
+    
+    # Store the new page in context for further use
+    context.map_page = new_page
+
+    # context.browser_context.pages[0] # link my gear app page
+    # context.browser_context.pages[1] # map page
+
+    context.browser_context.pages[0].wait_for_selector("//span[text()='Add your business']", timeout=5000)
+    context.browser_context.pages[1].wait_for_selector("//span[text()='Add your business']", timeout=5000)
+    # context.app_page = context.browser_context.pages[0]
+    context.active_page = context.browser_context.pages[1]
+
+    # context.active_page.wait_for_selector("//span[text()='Add your business']", timeout=5000)
+    # context.active_page.close()
+    # context.active_page = context.browser_context.pages[0]

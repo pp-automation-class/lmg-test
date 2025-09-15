@@ -12,16 +12,21 @@ class AnkDeviceSetting(AnkBasePage):
         self.page_title = "//h1[text()='Devices Settings']"
         self.ank_add_device_button = "//button[.//span[text()='Add new device']]"
 
-        # Table locators
+        # Locators
+        self.page_title = page.get_by_role("heading", name="Devices Settings")
+        self.add_device_button = page.get_by_role("button", name="Add new device")
         self.device_table = page.locator("table").nth(1)
         self.table_rows = "//div[@class='el-table__body-wrapper']//tbody/tr"
         self.row_with_device_name = (
             "//div[@class='el-table__body-wrapper']//tr[.//td[1 and .='{name}']]"
         )
         self.delete_button_in_del_form = "//button[.='Delete']"
+
         # Actions
     def ank_click_add_device(self):
+        self.logger.info("Clicking add device button")
         self.ank_add_device_button.click()
+        self.logger.debug("Successfully clicked add device button")
 
     def ank_click_edit_device(self, device_name: str):
         row = self.page.locator(f"tr:has-text('{device_name}')")

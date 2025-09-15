@@ -50,6 +50,10 @@ reports/
 test_reports/
 behave_reports/
 
+# Allure
+allure-report/
+allure-results/
+
 # Playwright
 playwright-report/
 test-results/

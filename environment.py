@@ -1,5 +1,7 @@
 from playwright.sync_api import sync_playwright
 from utils.logger import setup_logger, get_logger
+import allure
+from allure_commons.types import AttachmentType
 
 # Initialize logging for the test framework
 logger = setup_logger("test_framework", "DEBUG")
@@ -25,6 +27,15 @@ def before_feature(context, feature):
 def before_scenario(context, scenario):
     logger.info(f"--- Starting Scenario: {scenario.name} ---")
     logger.debug(f"Scenario tags: {list(scenario.tags)}")
+    
+    # Add Allure test info
+    allure.dynamic.title(scenario.name)
+    allure.dynamic.description(f"Feature: {scenario.feature.name}")
+    
+    # Add tags as labels
+    for tag in scenario.tags:
+        allure.dynamic.tag(tag)
+    
     # Create a new browser context and page for each scenario
     context.browser_context = context.browser.new_context()
     context.page = context.browser_context.new_page()
@@ -42,11 +53,35 @@ def after_step(context, step):
         logger.error(f"Step failed: {step.step_type} {step.name}")
         if step.exception:
             logger.error(f"Error details: {step.exception}")
+            
+        # Capture screenshot on step failure
+        if hasattr(context, 'page') and context.page:
+            try:
+                screenshot = context.page.screenshot()
+                allure.attach(screenshot, name=f"Step Failed: {step.name}", attachment_type=AttachmentType.PNG)
+                logger.debug("Screenshot attached to Allure report")
+            except Exception as e:
+                logger.warning(f"Failed to capture screenshot: {e}")
+                
     elif step.status.name == "skipped":
         logger.warning(f"Step skipped: {step.step_type} {step.name}")
+        
+    # Add step information to Allure report
+    with allure.step(f"{step.step_type.capitalize()}: {step.name}"):
+        if step.status.name == "failed" and step.exception:
+            allure.attach(str(step.exception), name="Error Details", attachment_type=AttachmentType.TEXT)
 
 
 def after_scenario(context, scenario):
+    # Capture final screenshot before closing browser
+    if hasattr(context, 'page') and context.page:
+        try:
+            screenshot = context.page.screenshot()
+            allure.attach(screenshot, name=f"Final Screenshot - {scenario.status.name.upper()}", attachment_type=AttachmentType.PNG)
+            logger.debug("Final screenshot attached to Allure report")
+        except Exception as e:
+            logger.warning(f"Failed to capture final screenshot: {e}")
+    
     if scenario.status.name == "passed":
         logger.info(f"--- Scenario PASSED: {scenario.name} ---")
     elif scenario.status.name == "failed":
