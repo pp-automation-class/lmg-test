@@ -15,8 +15,10 @@ class AnkDevicesPage(AnkBasePage):
 
     def ank_get_device_locator(self, name: str):
         """Return the locator for a specific device"""
+        # Match the device name exactly inside the device info header
         return f"//div[@class='lmg-device__info']/h4[text()='{name}']"
 
 
     def ank_open_device_settings(self):
+        """Open the device settings page from the Devices screen."""
         self.ank_click_element(self.device_settings_button)

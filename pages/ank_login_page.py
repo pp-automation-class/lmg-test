@@ -24,7 +24,7 @@ class AnkLoginPage(AnkBasePage):
         self.create_account_link = "//a[text()='Create an account']"
         self.restore_password_link = "//h5[text()='Restore Password']"
         self.validation_message = "//p[contains(text(), 'Sorry')]"
-        self.dashboard_page = "//h3[contains(text(), 'My devices')]"
+        self.device_page= "//h3[contains(text(), 'My devices')]"
         self.error_message = "//p[contains(text(), 'Sorry, unrecognized username or password')]"
 
     # Navigation
@@ -70,9 +70,9 @@ class AnkLoginPage(AnkBasePage):
     def ank_verify_title_contains(self, expected_text):
         return self.ank_verify_page_title(expected_text)
 
-    def ank_verify_dashboard_page(self, xpath: str = None):
+    def ank_verify_device_page(self, xpath: str = None):
         """Check if an element exists on the page by xpath. If not provided, use default dashboard xpath."""
-        xpath = xpath or self.dashboard_page
+        xpath = xpath or self.device_page
         return self.ank_element_exists(xpath, wait=True)
 
     def ank_verify_element_exists(self, error_message, wait):

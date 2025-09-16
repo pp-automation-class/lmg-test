@@ -43,10 +43,10 @@ def ank_click_login_button(context, button_text):
     login_page.ank_click_login()
 
 
-@step("ank I should be redirected to the dashboard page")
-def ank_verify_dashboard_page(context):
+@step("ank I should be redirected to the device page")
+def ank_verify_device_page(context):
     login_page = AnkLoginPage(context.page)
-    assert login_page.ank_verify_dashboard_page(), "Dashboard page was not displayed"
+    assert login_page.ank_verify_device_page(), "Dashboard page was not displayed"
 
 
 @step('ank I click the "Create an Account" link')
