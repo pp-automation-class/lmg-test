@@ -10,17 +10,37 @@ class TaPiCreateAccountPage(BasePage):
 
         # Common registration form elements
         self.email_input = "//input[@name='email' or @type='email']"
-        self.enter_valid_email_error_message = "//div[@class='el-form-item__error' and contains(text(), 'Please enter you email address']"
+        self.empty_email_error_message = "//div[text()='Please enter you email address']"
+
+        self.enter_valid_email_error_message = "//div[text()='Please enter a valid email address']"
         self.checkbox = "//span[@class='el-checkbox__inner']"
-        self.save_button = "//button[normalize-space(.)='Create' or normalize-space(.)='Sign Up' or @type='submit']"
-        self.back_to_login_link = "//a[contains(., 'Login') or contains(., 'Sign in') or @href='#/login']"
+        self.terms_and_conditions = "//a[text()='Terms and Conditions']"
+        self.register_button = "//button"
+        self.back_to_login_link = "//a[text()='Log in']"
+
 
     # Actions
     def TaPi_set_email(self, email: str):
         self.fill_input(self.email_input, email)
+
+    def TaPi_get_empty_email_error_message(self) -> str:
+        return self.get_element_text(self.empty_email_error_message)
+
+    def TaPi_get_enter_valid_email_error_message(self) -> str:
+        return self.get_element_text(self.enter_valid_email_error_message)
+
     def TaPi_click_checkbox(self):
         self.click_element(self.checkbox)
 
+    def TaPi_click_terms_and_conditions(self):
+        self.click_element(self.terms_and_conditions)
 
-    def Tapi_click_back_to_login(self):
+    def TaPi_click_register(self):
+        self.click_element(self.register_button)
+
+    def TaPi_click_back_to_login(self):
         self.click_element(self.back_to_login_link)
+
+
+
+
