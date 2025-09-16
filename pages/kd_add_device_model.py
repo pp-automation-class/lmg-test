@@ -18,14 +18,14 @@ class KdAddDeviceModal(KdBasePage):
         # Button locators
         self.add_device_button = "//div[@class='form-submit']//span[text()='Add new device']"
 
-    def get_device_type_option_locator(self, option: str):
+    def kd_get_device_type_option_locator(self, option: str):
         return f"//li[@role='option']/span[text()='{option}']"
 
     def kd_select_device_type(self, device_type: str):
         # Click on the dropdown
         self.kd_click_element(self.device_type_dropdown)
         # Select the option
-        self.kd_click_element(self.get_device_type_option_locator(device_type))
+        self.kd_click_element(self.kd_get_device_type_option_locator(device_type))
 
     def kd_enter_device_name(self, name: str):
         self.kd_fill_input(self.device_name_input, name)
