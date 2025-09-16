@@ -25,7 +25,8 @@ class AnkDeviceSetting(AnkBasePage):
         # Actions
     def ank_click_add_device(self):
         self.logger.info("Clicking add device button")
-        self.ank_add_device_button.click()
+        # Use the role-based Locator defined in __init__
+        self.add_device_button.click()
         self.logger.debug("Successfully clicked add device button")
 
     def ank_click_edit_device(self, device_name: str):

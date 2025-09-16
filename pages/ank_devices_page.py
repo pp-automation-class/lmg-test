@@ -9,7 +9,8 @@ class AnkDevicesPage(AnkBasePage):
         """Initialize with the Playwright page object"""
         super().__init__(page)
 
-        self.page_title = "//h3[text()='My devices ']"
+        # Be lenient on whitespace/casing in the Devices header
+        self.page_title = "//h3[contains(normalize-space(.), 'My devices')]"
         self.device_settings_button = "//a[@href='#/device-settings']"
 
 

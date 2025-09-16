@@ -1,5 +1,5 @@
 from behave import step
-import os
+
 from pages.ank_login_page import AnkLoginPage
 from pages.ank_create_account_page import AnkCreateAccountPage
 from pages.ank_restore_password_page import AnkRestorePasswordPage
@@ -27,8 +27,13 @@ def ank_navigate_to_login_page(context, env):
 
 @step('ank I enter "{text}" in the email field')
 def ank_input_email(context, text):
+    # Try login page email first; if not visible, fall back to Restore Password page email field
     login_page = AnkLoginPage(context.page)
-    login_page.ank_enter_email(text)
+    if login_page.ank_element_exists(login_page.email_input, wait=False):
+        login_page.ank_enter_email(text)
+    else:
+        restore_page = AnkRestorePasswordPage(context.page)
+        restore_page.ank_enter_email(text)
 
 
 @step('ank I enter "{text}" in the password field')
@@ -39,14 +44,15 @@ def ank_input_password(context, text):
 
 @step('ank I click the "{button_text}" button')
 def ank_click_login_button(context, button_text):
-    login_page = AnkLoginPage(context.page)
-    login_page.ank_click_login()
-
-
-@step("ank I should be redirected to the device page")
-def ank_verify_device_page(context):
-    login_page = AnkLoginPage(context.page)
-    assert login_page.ank_verify_device_page(), "Dashboard page was not displayed"
+    text = button_text.strip().lower()
+    if text == "login":
+        login_page = AnkLoginPage(context.page)
+        login_page.ank_click_login()
+    elif text == "send":
+        restore_page = AnkRestorePasswordPage(context.page)
+        restore_page.ank_click_send()
+    else:
+        raise AssertionError(f"Unknown button text: {button_text}. Supported: 'Login', 'Send'.")
 
 
 @step('ank I click the "Create an Account" link')
@@ -94,22 +100,29 @@ def ank_see_restore_password_heading(context):
 @step('ank I should see error message "Email is required"')
 def ank_see_error_message_email(context):
     login_page = AnkLoginPage(context.page)
-    assert login_page.ank_verify_title_contains("Email is required")
+    assert login_page.ank_verify_element_exists(login_page.email_required_message, wait=True)
 
 
 @step('ank I should see error message "Password is required"')
 def ank_see_error_message_password(context):
     login_page = AnkLoginPage(context.page)
-    assert login_page.ank_verify_title_contains("Password is required")
+    assert login_page.ank_verify_element_exists(login_page.password_required_message, wait=True)
 
 
 @step("ank I wait for {sec} seconds")
 def ank_wait_for_sec(context, sec):
-    context.page.ank_wait_for_timeout(int(sec) * 1000)
+    context.page.wait_for_timeout(int(sec) * 1000)
 
 
-@step('ank I click the {button_text} button"')
-def ank_click_send_button(context, button_text):
-    restore_page = AnkRestorePasswordPage(context.page)
-    restore_page.ank_click_send()
 
+
+@step("ank I should be redirected to the devices page")
+def ank_should_be_on_device_page(context):
+    devices_page = AnkLoginPage(context.page)
+    # Wait for routing/rendering to settle
+    context.page.wait_for_load_state('networkidle')
+    # Explicitly wait for the Devices header to become visible
+    context.page.wait_for_selector(devices_page.device_page, state="visible", timeout=15000)
+    assert devices_page.ank_verify_device_page(), (
+        "Expected to be on Devices page, but the page title did not match."
+    )

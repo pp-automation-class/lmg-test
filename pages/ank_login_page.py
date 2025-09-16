@@ -26,6 +26,9 @@ class AnkLoginPage(AnkBasePage):
         self.validation_message = "//p[contains(text(), 'Sorry')]"
         self.device_page= "//h3[contains(text(), 'My devices')]"
         self.error_message = "//p[contains(text(), 'Sorry, unrecognized username or password')]"
+        # Inline field validation messages
+        self.email_required_message = "//p[contains(text(), 'Email is required')]"
+        self.password_required_message = "//p[contains(text(), 'Password is required')]"
 
     # Navigation
     def ank_navigate_to_login(self, url):
@@ -49,8 +52,8 @@ class AnkLoginPage(AnkBasePage):
 
     def ank_login(self, email, password):
         """Complete the login flow with email and password"""
-        self.ank_enter_email()
-        self.ank_enter_password()
+        self.ank_enter_email(email)
+        self.ank_enter_password(password)
         self.ank_click_login()
 
     # Navigation links
@@ -76,8 +79,5 @@ class AnkLoginPage(AnkBasePage):
         return self.ank_element_exists(xpath, wait=True)
 
     def ank_verify_element_exists(self, error_message, wait):
-        return self.ank_element_exists(error_message, wait)
-        pass
-
-    def ank_element_exists(self, xpath, wait):
-        pass
+        # Delegate to base class implementation
+        return super().ank_verify_element_exists(error_message, wait)

@@ -22,6 +22,7 @@ class AnkAddDeviceModal(AnkBasePage):
 
         # Button locators
         self.add_device_button = "//div[@class='form-submit']//span[text()='Add new device']"
+        self.update_button = "//div[@class='form-submit']//span[text()='Update']"
 
 
     def ank_get_device_type_option_locator(self, option: str):
@@ -50,6 +51,11 @@ class AnkAddDeviceModal(AnkBasePage):
         self.logger.info("ANK: Clicking add device button in modal")
         self.ank_click_element(self.add_device_button)
         self.logger.debug("ANK: Successfully clicked add device button in modal")
+
+    def ank_click_update(self):
+        self.logger.info("ANK: Clicking update button in modal")
+        self.ank_click_element(self.update_button)
+        self.logger.debug("ANK: Successfully clicked update button in modal")
 
     def ank_close_modal(self):
         self.logger.info("ANK: Closing add device modal")
