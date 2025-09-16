@@ -4,8 +4,8 @@ from pages.TaPi_login_page import TaPiLoginPage
 from pages.TaPi_devices_page import TaPiDevicesPage
 
 
-@step("I should be redirected to the devices page")
-def should_be_on_devices_page(context):
+@step("TaPi should be redirected to the devices page")
+def TaPi_should_be_on_devices_page(context):
     """Verify that user is on the Devices page after successful login."""
     devices_page = TaPiDevicesPage(context.page)
     # Wait for routing/rendering to settle
@@ -18,8 +18,8 @@ def should_be_on_devices_page(context):
     )
 
 
-@step("I should remain on the login page")
-def should_remain_on_login_page(context):
+@step("TaPi should remain on the login page")
+def Tapi_should_remain_on_login_page(context):
     """Verify that user remains on the Login page (no redirect)."""
     login_page = TaPiLoginPage(context.page)
     # If still on login page, email input should be visible
@@ -27,8 +27,8 @@ def should_remain_on_login_page(context):
         "Expected to remain on Login page, but login elements are not visible."
 
 
-@step('I should see error message "{text}"')
-def should_see_error_message(context, text):
+@step('TaPi should see error message "{text}"')
+def Tapi_should_see_error_message(context, text):
     login_page = TaPiLoginPage(context.page)
 
     # Wait up to 10s for either the specific error element
