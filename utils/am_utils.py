@@ -22,9 +22,9 @@ def am_get_enviroment(env: str, item: str) -> str:
             "password": "r+WLLX9qwx^:>:3",
         },
         "dev-v2": {
-            "url": "https://dev-v2.linkmygear.com/#/login}",
-            "email": "7nxjno9lr@mozmail.com",
-            "password": "r+WLLX9qwx^:>:3",
+            "url": "https://test:FjeKB9ySMzwvDUs2XACpfu@dev.linkmygear.com/login",
+            "email": "pcs.automationclass@gmail.com",
+            "password": "1234567",
         },
     }
 
@@ -38,6 +38,7 @@ def am_get_enviroment(env: str, item: str) -> str:
         raise ValueError(f"Unknown item: {item}. Available: url, email, password")
     return item
 
+
 def log_files_path(name: str) -> str:
     log_dir = os.path.join("..", "..", "temp")
     os.makedirs(log_dir, exist_ok=True)
@@ -50,4 +51,3 @@ def screenshot(page, name: str):
     )
     page.screenshot(path=screenshot_path, full_page=True)
     logging.info(f"Screenshot saved to '{screenshot_path}'")
-
