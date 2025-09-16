@@ -49,7 +49,7 @@ def kd_verify_dashboard_page(context):
 @step('kd I should see an error message "Sorry, unrecognized username or password"')
 def kd_error_login_message(context):
     login_page = KdLoginPage(context.page)
-    assert login_page.verify_element_exists(login_page.error_message, wait=True)
+    assert login_page.kd_verify_element_exists(login_page.error_message, wait=True)
 
 @step('kd I click on forget the password link')
 def kd_click_forgot_password(context):
