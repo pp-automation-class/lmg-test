@@ -1,6 +1,7 @@
 from behave import step
-import os
+
 from pages.ank_login_page import AnkLoginPage
+from pages.ank_devices_page import AnkDevicesPage
 from pages.ank_create_account_page import AnkCreateAccountPage
 from pages.ank_restore_password_page import AnkRestorePasswordPage
 
@@ -37,16 +38,34 @@ def ank_input_password(context, text):
     login_page.ank_enter_password(text)
 
 
+@step("ank Wait for {sec} seconds")
+def ank_wait_for_sec(context, sec):
+    context.page.ank_wait_for_timeout(int(sec) * 1000)
+
+
+@step("ank I should be redirected to the devices page")
+def ank_should_be_on_device_page(context):
+     """Verify that user is on the Devices page after successful login."""
+     device_page = AnkDevicesPage(context.page)
+     # Wait for routing/rendering to settle
+     context.page.wait_for_load_state('networkidle')
+     # Explicitly wait for the Devices header to become visible
+     context.page.wait_for_selector(device_page.page_title, state="visible")
+     assert device_page.ank_verify_page_title("My device"), (
+         "Expected to be on Devices page, but the page title did not match."
+    )
+
+
 @step('ank I click the "{button_text}" button')
 def ank_click_login_button(context, button_text):
     login_page = AnkLoginPage(context.page)
     login_page.ank_click_login()
 
 
-@step("ank I should be redirected to the dashboard page")
-def ank_verify_dashboard_page(context):
-    login_page = AnkLoginPage(context.page)
-    assert login_page.ank_verify_dashboard_page(), "Dashboard page was not displayed"
+@step("ank I should be redirected to the device page")
+def ank_verify_device_page(context):
+    login_page = AnkDevicesPage(context.page)
+    assert login_page.ank_verify_page_title("My device")
 
 
 @step('ank I click the "Create an Account" link')
@@ -101,11 +120,6 @@ def ank_see_error_message_email(context):
 def ank_see_error_message_password(context):
     login_page = AnkLoginPage(context.page)
     assert login_page.ank_verify_title_contains("Password is required")
-
-
-@step("ank Wait for {sec} seconds")
-def ank_wait_for_sec(context, sec):
-    context.page.ank_wait_for_timeout(int(sec) * 1000)
 
 
 @step('ank I click the {button_text} button"')
