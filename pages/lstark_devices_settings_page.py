@@ -1,3 +1,5 @@
+from playwright.sync_api import Page
+
 from pages.lstark_base_page import LStarkBasePage
 
 
@@ -14,8 +16,8 @@ class LStarkDeviceSettingsPage(LStarkBasePage):
         self.add_device_button.click()
 
     def click_edit_device(self, device_name: str):
-        row = self.page.locator(f"tr:has-text('{device_name}')")
-        row.get_by_role("button", name="Edit").click()
+        row = self.page.locator(f"tr:has-text('{device_name}')") # Locator for the entire row
+        row.get_by_role("button", name="Edit").click()  # inside that row locates the specific button
 
     def click_delete_device(self, device_name: str):
         row = self.page.locator(f"tr:has-text('{device_name}')")
