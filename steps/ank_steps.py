@@ -108,7 +108,6 @@ def ank_see_error_message_email(context):
     login_page = AnkLoginPage(context.page)
     assert login_page.ank_get_element_text(login_page.email_required_message)
 
-
 @step('ank I should see error message "Password is required"')
 def ank_see_error_message_password(context):
     login_page = AnkLoginPage(context.page)
@@ -124,3 +123,15 @@ def ank_click_send_button(context, button_text):
 @step("ank I wait for {sec} seconds")
 def ank_wait_for_sec(context, sec):
     context.page.wait_for_timeout(int(sec) * 1000)
+
+
+@step("ank I should be redirected to the devices page")
+def ank_should_be_on_device_page(context):
+    devices_page = AnkLoginPage(context.page)
+    # Wait for routing/rendering to settle
+    context.page.wait_for_load_state('networkidle')
+    # Explicitly wait for the Devices header to become visible
+    context.page.wait_for_selector(devices_page.device_page, state="visible", timeout=15000)
+    assert devices_page.ank_verify_device_page(), (
+        "Expected to be on Devices page, but the page title did not match."
+    )
