@@ -13,6 +13,7 @@ from utils.logger import get_logger
 # ANK_EMAIL = "akr.autotest@gmail.com"
 # ANK_PASSWORD = "12345"
 
+
 class AnkBasePage:
     """Base class with common page actions (synchronous Playwright API)."""
 
@@ -23,7 +24,6 @@ class AnkBasePage:
         # Each child class should define this
         self.page_title = "//h5"
         self.logger.debug(f"Initialized {self.__class__.__name__} page object")
-
 
     def ank_get_menu_item_locator(self, menu_item: str):
         """Return the locator for a specific menu item"""
@@ -94,7 +94,6 @@ class AnkBasePage:
             self.logger.error(f"ANK: Element not visible: {selector}")
             raise Exception(f"Element not visible: {selector}")
         self.logger.debug(f"ANK: Element is visible: {selector}")
-
 
     # Helpful waits (optional but commonly needed)
     def ank_element_exists(self, xpath, wait: bool = False):

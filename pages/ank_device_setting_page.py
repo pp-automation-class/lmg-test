@@ -51,7 +51,3 @@ class AnkDeviceSetting(AnkBasePage):
 
     def ank_click_delete_button_in_del_form(self):
         self.ank_click_element(self.delete_button_in_del_form)
-
-
-
-

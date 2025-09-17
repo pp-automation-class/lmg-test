@@ -74,7 +74,7 @@ def ank_click_edit_device(context, name: str):
 
 
 @step('ank I fill in device name "{name}"')
-def ank_fill_device_name(context, name: str):
+def ank_fill_in_device_name(context, name: str):
     AnkAddDeviceModal(context.page).ank_enter_device_name(name)
     logger.debug(f"ANK: Filling in device name '{name}'")
 
@@ -101,4 +101,3 @@ def ank_click_delete_device(context, name: str):
 def ank_click_delete_button(context):
     logger.debug("ANK: Clicking Delete button in confirmation dialog")
     AnkDeviceSetting(context.page).ank_click_delete_button_in_del_form()
-
