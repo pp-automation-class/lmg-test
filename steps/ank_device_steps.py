@@ -2,7 +2,7 @@
 from behave import step
 
 from pages.ank_devices_page import AnkDevicesPage
-from pages.ank_device_setting import AnkDeviceSetting
+from pages.ank_device_setting_page import AnkDeviceSetting
 from pages.ank_add_device_model import AnkAddDeviceModal
 from utils.logger import get_logger
 
@@ -74,7 +74,7 @@ def ank_click_edit_device(context, name: str):
 
 
 @step('ank I fill in device name "{name}"')
-def ank_fill_device_name(context, name: str):
+def ank_fill_in_device_name(context, name: str):
     AnkAddDeviceModal(context.page).ank_enter_device_name(name)
     logger.debug(f"ANK: Filling in device name '{name}'")
 

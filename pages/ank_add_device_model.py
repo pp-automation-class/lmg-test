@@ -2,6 +2,7 @@
 
 from pages.ank_base_page import AnkBasePage
 
+
 class AnkAddDeviceModal(AnkBasePage):
     """Represents the devices page with its elements and actions"""
 
@@ -22,7 +23,6 @@ class AnkAddDeviceModal(AnkBasePage):
 
         # Button locators
         self.add_device_button = "//div[@class='form-submit']//span[text()='Add new device']"
-
 
     def ank_get_device_type_option_locator(self, option: str):
         return f"//li[@role='option']/span[text()='{option}']"

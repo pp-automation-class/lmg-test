@@ -81,6 +81,19 @@ class AnkBasePage:
         self.ank_click_element(self.ank_get_menu_item_locator(menu_item))
         self.logger.debug(f"ANK: Successfully opened menu item: {menu_item}")
 
+    def ank_get_notification(self, text):
+        """Get notification element by its text"""
+        selector = f"//p[.='{text}']"
+        self.ank_verify_page(selector)
+        return selector
+
+    def ank_verify_page(self, selector):
+        """Verify that a specific element is visible on the page"""
+        self.logger.debug(f"ANK: Verifying page element is visible: {selector}")
+        if not self.ank_is_element_visible(selector):
+            self.logger.error(f"ANK: Element not visible: {selector}")
+            raise Exception(f"Element not visible: {selector}")
+        self.logger.debug(f"ANK: Element is visible: {selector}")
 
     # Helpful waits (optional but commonly needed)
     def ank_element_exists(self, xpath, wait: bool = False):

@@ -23,7 +23,6 @@ class AnkDevicesPage(AnkBasePage):
         # Match the device name exactly inside the device info header
         return f"//div[@class='lmg-device__info']/h4[text()='{name}']"
 
-
     def ank_open_device_settings(self):
         """Open the device settings page from the Devices screen."""
         self.ank_click_element(self.device_settings_button)

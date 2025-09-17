@@ -44,5 +44,3 @@ class AnkRestorePasswordPage(AnkBasePage):
 
     def ank_verify_title_contains(self, expected_text):
         return self.ank_verify_page_title(expected_text)
-
-

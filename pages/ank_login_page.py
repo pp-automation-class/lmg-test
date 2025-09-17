@@ -24,7 +24,7 @@ class AnkLoginPage(AnkBasePage):
         self.create_account_link = "//a[text()='Create an account']"
         self.restore_password_link = "//h5[text()='Restore Password']"
         self.validation_message = "//p[contains(text(), 'Sorry')]"
-        self.device_page= "//h3[contains(text(), 'My devices')]"
+        self.device_page = "//h3[contains(text(), 'My devices')]"
         self.error_message = "//p[contains(text(), 'Sorry, unrecognized username or password')]"
         self.email_required_message = "//p[contains(text(), 'Email is required')]"
         self.password_required_message = "//p[contains(text(), 'Password is required')]"
