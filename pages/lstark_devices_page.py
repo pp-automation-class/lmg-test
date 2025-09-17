@@ -10,4 +10,8 @@ class LStarkDevicesPage(LStarkBasePage):
         super().__init__(page)
 
         self.page_title = "//h3[contains(text(),'My device')]"
+        self.device_settings_button = "//a[@href='#/device-settings']"
+
+
+
 
