@@ -17,7 +17,7 @@ Feature: Test devices
     And ls Press add new device button
     Then ls Verify device "Test1LS" exists in list of devices
 
-    @ls-regression
+    @ls-smoke
   Scenario: ls Create 2nd device
     Then Verify I on "My devices" page
     When I open Devices Settings
