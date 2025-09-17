@@ -114,8 +114,6 @@ def ank_wait_for_sec(context, sec):
     context.page.wait_for_timeout(int(sec) * 1000)
 
 
-
-
 @step("ank I should be redirected to the devices page")
 def ank_should_be_on_device_page(context):
     devices_page = AnkLoginPage(context.page)
