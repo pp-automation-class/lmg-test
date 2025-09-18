@@ -1,17 +1,17 @@
-name: AM Manual Test Execution
+name: LStark Manual Test Execution
 
 on:
   workflow_dispatch:
     inputs:
       file_name:
-        description: 'Feature file to run (e.g., am_devices_page.feature)'
-        required: false
-        default: ''
+        description: 'Feature file to run (e.g., lstark_devices.feature)'
+        required: true
+        default: 'lstark_devices.feature'
         type: string
       tag:
-        description: 'Tag to filter tests (e.g., @am-regression, leave empty to run without tag filter)'
+        description: 'Tag to filter tests (e.g., @ls-smoke, leave empty to run without tag filter)'
         required: false
-        default: ''
+        default: '@ls-smoke'
         type: string
 
 jobs:
@@ -40,9 +40,6 @@ jobs:
         path: .venv
         key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
         
-    - name: Poetry lock
-      run: poetry lock
-
     - name: Install dependencies
       run: poetry install --no-root
       
@@ -56,16 +53,12 @@ jobs:
     - name: Run tests with file and tag
       if: ${{ inputs.file_name != '' && inputs.tag != '' }}
       run: poetry run behave features/${{ inputs.file_name }} --tags=${{ inputs.tag }}
-
-    - name: Run tests with all am_* files
-      if: ${{ inputs.file_name == '' && inputs.tag == '' }}
-      run: poetry run behave -i "am_*" features
-
+      
     - name: Upload test results
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: test-results
+        name: lstark-test-results
         path: |
           reports/
           *.log
