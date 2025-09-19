@@ -82,15 +82,19 @@ class AnkBasePage:
         self.logger.debug(f"ANK: Successfully opened menu item: {menu_item}")
 
 
-    # # Helpful waits (optional but commonly needed)
-    # def ank_element_exists(self, xpath, wait: bool = False):
-    #     try:
-    #         locator = self.page.locator(xpath)
-    #         if wait:
-    #             locator.wait_for(state="visible", timeout=5000)
-    #         return locator.is_visible()
-    #     except Exception:
-    #         return False
-    #
-    # def ank_verify_element_exists(self, xpath, wait: bool = False):
-    #     return self.ank_element_exists(xpath, wait=wait)
+    # Helpful waits (optional but commonly needed)
+    def ank_element_exists(self, xpath, wait: bool = False):
+        """Return True if an element matching xpath exists and is visible.
+        If wait=True, wait up to 5s for it to become visible.
+        """
+        try:
+            locator = self.page.locator(xpath)
+            if wait:
+                locator.wait_for(state="visible", timeout=5000)
+            return locator.is_visible()
+        except Exception:
+            return False
+
+    def ank_verify_element_exists(self, xpath, wait: bool = False):
+        """Convenience wrapper over ank_element_exists"""
+        return self.ank_element_exists(xpath, wait=wait)

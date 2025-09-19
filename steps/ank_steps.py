@@ -8,7 +8,6 @@ from pages.ank_restore_password_page import AnkRestorePasswordPage
 
 @step('ank I am on the {env} environment login page')
 def ank_navigate_to_login_page(context, env):
-    # Map environment names to their respective URLs
     environments = {
         'prod': 'https://app.linkmygear.com/',
         'dev': 'https://test:FjeKB9ySMzwvDUs2XACpfu@dev.linkmygear.com/login',
@@ -38,7 +37,7 @@ def ank_input_password(context, text):
     login_page.ank_enter_password(text)
 
 
-@step("ank Wait for {sec} seconds")
+@step("ank I wait for {sec} seconds")
 def ank_wait_for_sec(context, sec):
     context.page.ank_wait_for_timeout(int(sec) * 1000)
 
@@ -62,12 +61,6 @@ def ank_click_login_button(context, button_text):
     login_page.ank_click_login()
 
 
-@step("ank I should be redirected to the device page")
-def ank_verify_device_page(context):
-    login_page = AnkDevicesPage(context.page)
-    assert login_page.ank_verify_page_title("My device")
-
-
 @step('ank I click the "Create an Account" link')
 def ank_click_create_account_link(context):
     login_page = AnkLoginPage(context.page)
@@ -89,7 +82,7 @@ def ank_create_account_heading(context):
 @step('ank I should see error message "Sorry, unrecognized username or password"')
 def ank_error_loging_message(context):
     loging_page = AnkLoginPage(context.page)
-    assert loging_page.ank_verify_element_exists(loging_page.error_message, wait=True)
+    assert loging_page.ank_get_element_text(loging_page.error_message)
 
 
 @step("ank I click on forgot the password link")
@@ -113,13 +106,13 @@ def ank_see_restore_password_heading(context):
 @step('ank I should see error message "Email is required"')
 def ank_see_error_message_email(context):
     login_page = AnkLoginPage(context.page)
-    assert login_page.ank_verify_title_contains("Email is required")
+    assert login_page.ank_get_element_text(login_page.email_required_message)
 
 
 @step('ank I should see error message "Password is required"')
 def ank_see_error_message_password(context):
     login_page = AnkLoginPage(context.page)
-    assert login_page.ank_verify_title_contains("Password is required")
+    assert login_page.ank_get_element_text(login_page.password_required_message)
 
 
 @step('ank I click the {button_text} button"')
@@ -127,3 +120,7 @@ def ank_click_send_button(context, button_text):
     restore_page = AnkRestorePasswordPage(context.page)
     restore_page.ank_click_send()
 
+
+@step("ank I wait for {sec} seconds")
+def ank_wait_for_sec(context, sec):
+    context.page.wait_for_timeout(int(sec) * 1000)
