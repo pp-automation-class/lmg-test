@@ -33,6 +33,26 @@ Feature:ANK- Login Page
         And ank I should see "Restore Password" heading
         And ank I enter "akr.autotest@gmail.com" in the email field
         And ank I click the "Send" button
+#    @negative @login
+#    Scenario: Failed login with invalid email
+#        When ank I enter "autotest@gmail.com" in the email field
+#        And ank I enter "12345" in the password field
+#        And ank I click the "Login " button
+#        And ank I should see error message "Sorry, unrecognized username or password"
+#
+#      @negative @login
+#    Scenario: Failed login with empty credentials
+#        When ank I click the "Login " button
+#        And ank I should see error message "Email is required"
+#        And ank I should see error message "Password is required"
+##
+#    @negative @login
+#    Scenario: Forgot password link navigates to reset page
+#        When ank I click on forgot the password link
+#        Then ank I should be redirected to password restore page
+#        And ank I should see "Restore Password" heading
+#        And ank I enter "akr.autotest@gmail.com" in the email field
+#        And ank I click the "Send" button
 
     @ank-positive
     Scenario: "Create an account" link navigates to registration page
