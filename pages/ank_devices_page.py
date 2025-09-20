@@ -1,6 +1,5 @@
 """Devices Page Object Model"""
 from pages.ank_base_page import AnkBasePage
-from pages.ank_login_page import AnkLoginPage
 
 
 class AnkDevicesPage(AnkBasePage):
@@ -10,24 +9,18 @@ class AnkDevicesPage(AnkBasePage):
         """Initialize with the Playwright page object"""
         super().__init__(page)
 
-        self.page_title = "//h3[text()='My devices ']"
+        # Be lenient on whitespace/casing in the Devices header
+        self.page_title = "//h3[contains(normalize-space(.), 'My devices')]"
         self.device_settings_button = "//a[@href='#/device-settings']"
-        self.menu_item_devices = "//a[text()='Devices']"
-        self.menu_item_records= "//a[text()='Records']"
-        self.menu_item_logbook= "//a[text()='LogBook']"
 
+    def get_show_on_map_locator(self, device_name: str):
+        return f"//div[contains(@class, 'lmg-device')][./div/h4[text()='{device_name}']]//button[text()=' Show on map ']"
 
-
-     def ank_device_locator(self, name: str):
+    def ank_get_device_locator(self, name: str):
         """Return the locator for a specific device"""
+        # Match the device name exactly inside the device info header
         return f"//div[@class='lmg-device__info']/h4[text()='{name}']"
 
-
     def ank_open_device_settings(self):
+        """Open the device settings page from the Devices screen."""
         self.ank_click_element(self.device_settings_button)
-
-
-    def ank_navigate_to_devices(self):
-
-
-
