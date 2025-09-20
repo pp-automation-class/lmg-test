@@ -26,6 +26,8 @@ class AnkLoginPage(AnkBasePage):
         self.validation_message = "//p[contains(text(), 'Sorry')]"
         self.device_page = "//h3[contains(text(), 'My devices')]"
         self.error_message = "//p[contains(text(), 'Sorry, unrecognized username or password')]"
+
+        # Inline field validation messages
         self.email_required_message = "//p[contains(text(), 'Email is required')]"
         self.password_required_message = "//p[contains(text(), 'Password is required')]"
 
@@ -80,3 +82,7 @@ class AnkLoginPage(AnkBasePage):
     def ank_get_error_message(self):
         """Get text of error message if displayed"""
         return self.ank_get_element_text(self.error_message)
+
+    def ank_verify_element_exists(self, error_message, wait):
+        # Delegate to base class implementation
+        return super().ank_verify_element_exists(error_message, wait)

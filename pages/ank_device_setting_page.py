@@ -20,7 +20,8 @@ class AnkDeviceSetting(AnkBasePage):
         self.row_with_device_name = (
             "//div[@class='el-table__body-wrapper']//tr[.//td[1 and .='{name}']]"
         )
-        self.delete_button_in_del_form = "//button[.='Delete']"
+        self.update_button = "//div[@class='form-submit']/button[.//span[text()='Update']]"
+        self.delete_button = "//button[.='Delete']"
 
         # Actions
     def ank_click_add_device(self):
@@ -52,6 +53,5 @@ class AnkDeviceSetting(AnkBasePage):
     def ank_click_delete_button(self):
         self.ank_click_element(self.delete_button)
 
-
-
-
+    def ank_click_update_button(self):
+        self.ank_click_element(self.update_button)

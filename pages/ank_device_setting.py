@@ -62,9 +62,7 @@ class AnkDeviceSetting(AnkBasePage):
         self.ank_verify_page_title(selector)
         self.logger.debug(f"Notification with text '{text}' is visible")
 
-
     def ank_click_delete_button(self):
         self.logger.info("Clicking delete button in modal")
         self.ank_click_element("//div[@class='form-submit']/button[.//span[text()='Delete']]")
         self.logger.debug("Successfully clicked delete button in modal")
-

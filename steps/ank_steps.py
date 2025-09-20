@@ -1,13 +1,13 @@
 from behave import step
 
 from pages.ank_login_page import AnkLoginPage
-from pages.ank_devices_page import AnkDevicesPage
 from pages.ank_create_account_page import AnkCreateAccountPage
 from pages.ank_restore_password_page import AnkRestorePasswordPage
 
 
 @step('ank I am on the {env} environment login page')
 def ank_navigate_to_login_page(context, env):
+    # Map environment names to their respective URLs
     environments = {
         'prod': 'https://app.linkmygear.com/',
         'dev': 'https://test:FjeKB9ySMzwvDUs2XACpfu@dev.linkmygear.com/login',
@@ -17,7 +17,8 @@ def ank_navigate_to_login_page(context, env):
     # Get the URL for the specified environment
     url = environments.get(env.lower())
     if not url:
-        raise ValueError(f"Unknown environment: {env}. Available: prod, dev, dev-v2")
+        raise ValueError(f"Unknown environment: {env}. "
+                         f"Available: prod, dev, dev-v2")
 
     # Navigate to the appropriate login page
     context.page.goto(url)
@@ -37,28 +38,19 @@ def ank_input_password(context, text):
     login_page.ank_enter_password(text)
 
 
-@step("ank I wait for {sec} seconds")
-def ank_wait_for_sec(context, sec):
-    context.page.ank_wait_for_timeout(int(sec) * 1000)
-
-
-@step("ank I should be redirected to the devices page")
-def ank_should_be_on_device_page(context):
-     """Verify that user is on the Devices page after successful login."""
-     device_page = AnkDevicesPage(context.page)
-     # Wait for routing/rendering to settle
-     context.page.wait_for_load_state('networkidle')
-     # Explicitly wait for the Devices header to become visible
-     context.page.wait_for_selector(device_page.page_title, state="visible")
-     assert device_page.ank_verify_page_title("My device"), (
-         "Expected to be on Devices page, but the page title did not match."
-    )
-
-
 @step('ank I click the "{button_text}" button')
 def ank_click_login_button(context, button_text):
     login_page = AnkLoginPage(context.page)
     login_page.ank_click_login()
+    text = button_text.strip().lower()
+    if text == "login":
+        login_page = AnkLoginPage(context.page)
+        login_page.ank_click_login()
+    elif text == "send":
+        restore_page = AnkRestorePasswordPage(context.page)
+        restore_page.ank_click_send()
+    else:
+        raise AssertionError(f"Unknown button text: {button_text}. Supported: 'Login', 'Send'.")
 
 
 @step('ank I click the "Create an Account" link')
@@ -107,6 +99,8 @@ def ank_see_restore_password_heading(context):
 def ank_see_error_message_email(context):
     login_page = AnkLoginPage(context.page)
     assert login_page.ank_get_element_text(login_page.email_required_message)
+    assert login_page.ank_verify_element_exists(login_page.email_required_message, wait=True)
+
 
 @step('ank I should see error message "Password is required"')
 def ank_see_error_message_password(context):
@@ -114,8 +108,9 @@ def ank_see_error_message_password(context):
     assert login_page.ank_get_element_text(login_page.password_required_message)
 
 
-@step('ank I click the {button_text} button"')
-def ank_click_send_button(context, button_text):
+@step('ank I click the "Send" button')
+def ank_click_send_button(context):
+    """Click the Send button on the restore password page."""
     restore_page = AnkRestorePasswordPage(context.page)
     restore_page.ank_click_send()
 
@@ -125,7 +120,7 @@ def ank_wait_for_sec(context, sec):
     context.page.wait_for_timeout(int(sec) * 1000)
 
 
-@step("ank I should be redirected to the devices page")
+@step("ank I should be on the devices page")
 def ank_should_be_on_device_page(context):
     devices_page = AnkLoginPage(context.page)
     # Wait for routing/rendering to settle

@@ -13,10 +13,8 @@ class AnkDevicesPage(AnkBasePage):
         self.page_title = "//h3[contains(normalize-space(.), 'My devices')]"
         self.device_settings_button = "//a[@href='#/device-settings']"
 
-
     def get_show_on_map_locator(self, device_name: str):
         return f"//div[contains(@class, 'lmg-device')][./div/h4[text()='{device_name}']]//button[text()=' Show on map ']"
-
 
     def ank_get_device_locator(self, name: str):
         """Return the locator for a specific device"""

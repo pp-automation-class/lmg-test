@@ -1,4 +1,3 @@
-
 from behave import step
 
 from pages.ank_devices_page import AnkDevicesPage
@@ -23,7 +22,7 @@ def ank_verify_on_page(context, page_name):
 @step('ank I open devices Settings')
 def ank_open_devices_settings(context):
     logger.info("ANK: Opening Devices Settings")
-    AnkDevicesPage(context.page).ank_open_device_settings()
+    context.page.get_by_role("heading", name="My devices").get_by_role("link").click()
     context.ank_devices_settings = AnkDeviceSetting(context.page)
     logger.debug("ANK: Successfully opened Devices Settings")
 
@@ -83,12 +82,14 @@ def ank_fill_in_device_name(context, name: str):
 def ank_click_update(context):
     logger.debug("ANK: Clicking Update button")
     AnkDeviceSetting(context.page).ank_click_update_button()
+    AnkAddDeviceModal(context.page).ank_click_update()
 
 
 @step('ank I get a notification "{text}"')
 def ank_get_notification(context, text: str):
     logger.debug(f"ANK: Getting notification with text '{text}'")
     AnkDeviceSetting(context.page).ank_get_notification(text)
+    AnkDevicesPage(context.page).ank_get_notification(text)
 
 
 @step('ank I click on "Delete" button for device "{name}"')
