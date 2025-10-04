@@ -1,0 +1,65 @@
+name: ANK Manual Test Execution
+
+on:
+  workflow_dispatch:
+    inputs:
+      file_name:
+        description: 'Feature file to run (e.g., ank_login_page.feature)'
+        required: false
+        default: 'ank_login_page.feature'
+        type: string
+      tag:
+        description: 'Tag to filter tests (e.g., @ank-regression, leave empty to run without tag filter)'
+        required: false
+        default: '@ank-regression'
+        type: string
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: latest
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+
+    - name: Cache Poetry dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+
+    - name: Install dependencies
+      run: poetry install --no-root
+
+    - name: Install Playwright browsers
+      run: poetry run playwright install
+
+    - name: Run tests with file only
+      if: ${{ inputs.file_name != '' && inputs.tag == '' }}
+      run: poetry run behave features/${{ inputs.file_name }}
+
+    - name: Run tests with file and tag
+      if: ${{ inputs.file_name != '' && inputs.tag != '' }}
+      run: poetry run behave features/${{ inputs.file_name }} --tags=${{ inputs.tag }}
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: ank-test-results-${{ github.run_number }}
+        path: |
+          reports/
+          *.log
+        retention-days: 30
