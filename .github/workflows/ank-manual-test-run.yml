@@ -62,4 +62,4 @@ jobs:
         path: |
           reports/
           *.log
-        retention-days: 29
+        retention-days: 30
