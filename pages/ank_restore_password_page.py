@@ -22,7 +22,7 @@ class AnkRestorePasswordPage(AnkBasePage):
         self.ank_navigate(url)
 
         # Interactions
-    def kd_enter_email(self, email):
+    def ank_enter_email(self, email):
         self.ank_fill_input(self.email_input, email)
 
     def ank_click_send(self):
